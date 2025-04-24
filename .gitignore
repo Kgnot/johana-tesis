@@ -1,0 +1,18 @@
+#quitar cosas del IDE
+.idea
+.vscode
+.
+
+## Vamos a ignorar el build:
+dist
+.dist
+*.dist
+.build
+build
+build.*
+*.build
+
+## No vamos a añadir el data pero vamos a colocarlo en el README
+data
+.data
+
