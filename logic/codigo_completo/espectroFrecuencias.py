@@ -6,12 +6,10 @@ import matplotlib.pyplot as plt
 import pywt
 from sklearn.decomposition import FastICA
 
-# Define the path to your text file
-file_path ='../../data/control/aposteriori/tug_1/60/MT_01200A8F-000-000_00B457A5.txt'
-# Read the first 6 lines separately
-with open(file_path, 'r') as file:
-    first_six_lines = [next(file).strip().split() for _ in range(28)]
-data= pd.read_csv(file_path, delim_whitespace=True, skiprows=12)
+# Ruta del archivo
+pelvis = '../../data/control/aposteriori/tug_1/60/MT_01200A8F-000-000_00B4578C.txt'
+# Leer el archivo
+data= pd.read_csv(pelvis, delim_whitespace=True, skiprows=12)
 DT=data.squeeze()
 Df=DT[['Acc_X', 'Acc_Y', 'Acc_Z', 'VelInc_X','VelInc_Y','VelInc_Z']]
 sensor = "right_sensor"

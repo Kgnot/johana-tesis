@@ -3,16 +3,29 @@ from matplotlib import pyplot as plt
 
 from logic.codigo_completo.caracteristicaAceleracion import featuresac
 from logic.codigo_completo.extraccionAngulos import artan
-from logic.filtroButterworth.filtroButterworth import filtroButterworth_DatosFinalTotal
-from logic.segmentacionWavelet.segmentacionWavelet import DT
+from logic.codigo_completo.filtroButterworth import filtroButterworth_DatosFinalTotal
+#from logic.codigo_completo.espectroFrecuencias import DT
+
+def extraclaims(datTatosProcesar:int):
+    datosfinal_total = filtroButterworth_DatosFinalTotal(datTatosProcesar)
+
+    for x in range(len(datosfinal_total)):
+        DT = datosfinal_total[x]
+        DT = np.array(DT)
+        da = DT[:, 0:3]
+        dv = DT[:, 3:6]
+        da = (da - da.min(axis=0)) / (da.max(axis=0) - da.min(axis=0))
+        DT = np.hstack((da, dv))
+        DT = np.array(DT)
 
 
 def segmulac(med:str,datTatosProcesar:int):
     ###
-    datosfinal_total = filtroButterworth_DatosFinalTotal(datTatosProcesar)
+
+
+
     # En todos los ejes de aceleración senial es = senialac = [DT[:,0:3]]
-    #senial = [DT[:0, 3]] # Asi estaba
-    senial = [DT[['Acc_X', 'Acc_Y', 'Acc_Z']].values]
+    senial = [DT[:0, 3]] # Asi estaba
 
     senialr = np.array(senial)
     # Este seg son las cosas que se desean como pararse etc
@@ -35,29 +48,29 @@ def segmulac(med:str,datTatosProcesar:int):
                 print("Error: Los tiempos ingresados están fuera de rango o son inválidos.")
                 return
 
-                # Extraer la parte de la señal correspondiente
-            señalm = senialr[k]
-            señal = señalm[To:Te]
+                # Extraer la parte de la senial correspondiente
+            senial = senialr[k]
+            senial = senial[To:Te]
             fig, axs = plt.subplots(3, 1, figsize=(20, 10))
 
             new_xticks = np.linspace(0, Tt, 26)
             new_xticklabels = [f"{(i / 100) + Ti:.2f}" for i in new_xticks]
 
-            axs[0].plot(señal[:, 0])
+            axs[0].plot(senial[:, 0])
             axs[0].set_title(f"{accion} {med1} X")
             axs[0].set_xticks(new_xticks, new_xticklabels)
             axs[0].set_xlabel('Tiempo')
             axs[0].set_ylabel('Amplitud')
             axs[0].grid()
 
-            axs[1].plot(señal[:, 1])
+            axs[1].plot(senial[:, 1])
             axs[1].set_title(f"{accion} {med1} Y")
             axs[1].set_xticks(new_xticks, new_xticklabels)
             axs[1].set_xlabel('Tiempo')
             axs[1].set_ylabel('Amplitud')
             axs[1].grid()
 
-            axs[2].plot(señal[:, 2])
+            axs[2].plot(senial[:, 2])
             axs[2].set_title(f"{accion} {med1} Z")
             axs[2].set_xticks(new_xticks, new_xticklabels)
             axs[2].set_xlabel('Tiempo')
@@ -65,11 +78,16 @@ def segmulac(med:str,datTatosProcesar:int):
             axs[2].grid()
 
             plt.subplots_adjust(hspace=0.5)
-            artan(señal)
+            artan(senial)
             print("\n")
-            car = featuresac(señal)
+            car = None
+            if med == "Acc":
+                car = featuresac(senial)
+            elif med == "Velocidad":
+                car = featuresac(senial)
+
             if car is not None:
-                print("Características de la señal:")
+                print("Características de la senial:")
                 for key, value in car.items():
                     print(f"{key}: {value}")
 

@@ -1,11 +1,5 @@
 import os
-
 import pandas as pd
-
-## defino que necesito un int y que devuelve un str, se puede quitar
-import os
-import pandas as pd
-
 
 def datosProcesar(dat: int) -> list:
     # Variables que usaremos en el filtro Butterworth
@@ -29,17 +23,15 @@ def datosProcesar(dat: int) -> list:
 
     # Luego de los if:
     data = os.listdir(carpeta2_datos)
+#    print(f"archivos encontrados: {data}")
     for archivo in data:
         archivo_csv = os.path.join(carpeta2_datos, archivo)
-
-        # Verificamos que sea un archivo y termine en .csv
-        if os.path.isfile(archivo_csv) and archivo_csv.endswith('.csv'):
-            df = pd.read_csv(archivo_csv, delim_whitespace=True, skiprows=12)
-            columnas = ['Acc_X', 'Acc_Y', 'Acc_Z', 'VelInc_X', 'VelInc_Y', 'VelInc_Z']
-            df_selected = df[columnas]
-            # Normalización Min-Max por columna
-            df_normalizado = (df_selected - df_selected.min()) / (df_selected.max() - df_selected.min())
-            señal = df_normalizado.values
-            senalesgenerales.append(señal)
+        df = pd.read_csv(archivo_csv, delim_whitespace=True, skiprows=12)
+        columnas = ['Acc_X', 'Acc_Y', 'Acc_Z', 'VelInc_X', 'VelInc_Y', 'VelInc_Z']
+        df_selected = df[columnas]
+        # Normalización Min-Max por columna
+        df_normalizado = (df_selected - df_selected.min()) / (df_selected.max() - df_selected.min())
+        senial = df_normalizado.values
+        senalesgenerales.append(senial)
 
     return senalesgenerales
