@@ -61,7 +61,8 @@ python -m ensurepip --upgrade
 > **gaitmap** / **gaitmap_mad**: Librerías para análisis de marcha (gait analysis), especialmente usando sensores o archivos de movimiento.
 > 
 > **scipy**: Complemento de `numpy` para cálculos científicos avanzados (integración, estadística, álgebra lineal, etc).
-
+> 
+> **Tabulate**: 
 ---
 También se instalaron dependencias con conda, pero no se que tan necesarias son, sin embargo:
 ```Bash

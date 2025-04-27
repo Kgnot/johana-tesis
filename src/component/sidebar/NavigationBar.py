@@ -18,6 +18,7 @@ class NavigationBar(ft.NavigationRail):
                 NavigationComponent(ft.icons.RECORD_VOICE_OVER, "Inicio"),  # Icono de voz para la prueba
                 NavigationComponent(ft.icons.SPEED, "Aceleraciones"),  # Representa velocidad y aceleración
                 NavigationComponent(ft.icons.TRENDING_UP, "Velocidades"),  # Representa incremento de velocidad
+                NavigationComponent(ft.icons.ACCESSIBLE_ROUNDED,"Parametros de la marcha"),
                 NavigationComponent(ft.icons.RUN_CIRCLE, "Reconocimiento de Actividades"),
                 NavigationComponent(ft.icons.MENU_BOOK, "Manual"),  # Representa un manual o documentación
                 NavigationComponent(ft.icons.MODEL_TRAINING, "Modelo"),  # Representa el modelo en entrenamiento

@@ -15,6 +15,7 @@ data= pd.read_csv(file_path, delim_whitespace=True, skiprows=12)
 DT=data.squeeze()
 Df=DT[['Acc_X', 'Acc_Y', 'Acc_Z', 'VelInc_X','VelInc_Y','VelInc_Z']]
 sensor = "right_sensor"
+
 df = Df.rename(columns={
     "Acc_X": "acc_x",
     "Acc_Y": "acc_y",

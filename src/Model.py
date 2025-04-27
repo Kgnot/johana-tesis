@@ -11,6 +11,7 @@ from src.views.ActivityRecognition import ActivityRecognition
 from src.views.HomeView import HomeView
 from src.views.ManualView import ManualView
 from src.views.VelocityView import VelocityView
+from src.views.gaitParameters import GaitParameters
 
 
 class ModelApp:
@@ -25,6 +26,7 @@ class ModelApp:
         self.accelerationsView:AccelerationsView = AccelerationsView()
         self.velocityView:VelocityView = VelocityView()
         self.activityRecognition:ActivityRecognition = ActivityRecognition()
+        self.gaitParameter: GaitParameters = GaitParameters()
         self.manualView:ManualView = ManualView("https://bibliotecadigital.ilce.edu.mx/Colecciones/CuentosMas/Cenicienta.pdf",
                                      "https://www.youtube.com/watch?v=QB0tJajDvMw")
 
@@ -51,8 +53,10 @@ class ModelApp:
         elif e.control.selected_index == 2:
             new_content = self.velocityView
         elif e.control.selected_index == 3:
-            new_content = self.activityRecognition
+            new_content = self.gaitParameter
         elif e.control.selected_index == 4:
+            new_content = self.activityRecognition
+        elif e.control.selected_index == 5:
             new_content = self.manualView
 
         if new_content:
