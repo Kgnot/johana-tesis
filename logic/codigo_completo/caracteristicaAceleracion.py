@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from tabulate import tabulate
 
 
-def featuresac(señal):
+def featuresac(senial):
     # Inicializa listas para almacenar las características
     rms_list = []
     potencia_list = []
@@ -19,7 +19,7 @@ def featuresac(señal):
     tiempot = []
 
     # Asegúrate de que la señal sea un array de NumPy
-    señalf = np.array(señal)
+    señalf = np.array(senial)
 
     lab = ['Acc_X', 'Acc_Y', 'Acc_Z']
     nc = señalf.shape[1]

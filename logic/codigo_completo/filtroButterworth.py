@@ -17,7 +17,7 @@ def filtroButterworth_DatosFinalTotal(datProc: int) -> list:
     fs = 100  # Frecuencia de muestreo en Hz
 
     # Nombres de las variables
-    Listado = ['Aceleración X', 'Aceleración Y', 'Aceleración Z', 'V. Angular X', 'V. Angular Y', 'V. Angular Z']
+    # Listado = ['Aceleración X', 'Aceleración Y', 'Aceleración Z', 'V. Angular X', 'V. Angular Y', 'V. Angular Z']
 
     # Filtro Butterworth y filtrado de señales
     for l in range(len(senalesgenerales)):
@@ -35,14 +35,14 @@ def filtroButterworth_DatosFinalTotal(datProc: int) -> list:
         datosfinal_total.append(datosfinal)
 
     # Graficamos la señal original y la señal filtrada de la primer componente
-    plt.figure(figsize=(10, 5))
-    plt.plot(senial_original[:, 0], label="Señal Original")
-    plt.plot(datosfinal[:, 0], label="Señal Filtrada", linestyle='--')
-    plt.title(f"Comparación de Señales {Listado[0]}")
-    plt.xlabel("Tiempo (muestras)")
-    plt.ylabel("Amplitud (normalizada)")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+    # plt.figure(figsize=(10, 5))
+    # plt.plot(senial_original[:, 0], label="Señal Original")
+    # plt.plot(datosfinal[:, 0], label="Señal Filtrada", linestyle='--')
+    # plt.title(f"Comparación de Señales {Listado[0]}")
+    # plt.xlabel("Tiempo (muestras)")
+    # plt.ylabel("Amplitud (normalizada)")
+    # plt.legend()
+    # plt.grid(True)
+    # plt.show()
 
     return datosfinal_total
