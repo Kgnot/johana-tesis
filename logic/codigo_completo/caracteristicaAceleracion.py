@@ -68,20 +68,16 @@ def featuresac(senial):
         ax.set_ylabel("Jerk (m/s³)")
         ax.grid(True)
 
-        img_buf = io.BytesIO()
-        fig.savefig(img_buf, format='png')
-        img_buf.seek(0)
-        img = Image.open(img_buf)
-        jerk_graficos.append(img)
+        jerk_graficos.append(fig)
 
-        plt.close(fig)  # Cierra cada figura inmediatamente
+        #plt.close(fig)  # Cierra cada figura inmediatamente
 
     # Crear tabla de características
     headers = ["Características", "Persona 1"]
     caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
                        "Rango Aceleraciones", "Jerk Máximo (m/s³)", "Jerk Mínimo (m/s³)", "Jerk Medio (m/s³)",
                        "Jerk RMS (m/s³)"]
-    data = []
+    total_data = []
     for y in range(nc):
         data = [
             [caracteristicas[0], rms_list[y]],
@@ -96,10 +92,12 @@ def featuresac(senial):
             [caracteristicas[9], jerkmedia[y]],
             [caracteristicas[10], jerkrms[y]]
         ]
-
+        total_data.append(data)
         # Imprimir la tabla
-        print(f"Tabla {lab[y]}. Resultados por sujeto")
-        print(tabulate(data, headers=headers, tablefmt="fancy_grid"))
+    # print(f"Tabla {lab[y]}. Resultados por sujeto")
+    # print(tabulate(data, headers=headers, tablefmt="fancy_grid"))
     plt.close('all')
 
-    return data, jerk_graficos
+    print("total_data: ", total_data)
+
+    return total_data, jerk_graficos

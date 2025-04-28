@@ -12,36 +12,38 @@ class IntroSection(ft.Column):
     def __init__(self, row: ft.Row):
         super().__init__(
             controls=[
-                GenericText("Estudio de Señales Biomecánicas", weight="bold", size=24),
+                GenericText("Estudio de Señales Biomecánicas", weight=ft.FontWeight.BOLD, size=28),
                 GenericText(
                     "Analice datos de aceleración y velocidad para comprender patrones de movimiento.",
-                    size=16
+                    size=16,
+                    color=ft.colors.GREY_700
                 ),
                 ft.Row([
-                    ft.Image(
-                        src="/icons/motion_analysis.png",
-                        width=80,
-                        height=80,
-                        fit=ft.ImageFit.CONTAIN
-                    ) if False else ft.Icon(ft.icons.ANALYTICS, size=60, color=ft.colors.BLUE),
+                    ft.Icon(ft.icons.ANALYTICS, size=60, color=ft.colors.GREY_700),
                     ft.Container(
                         content=GenericText(
                             "Compare distintas fases del movimiento para detectar anomalías o evaluar mejoras.",
-                            size=16
+                            size=16,
+                            color=ft.colors.GREY_700
                         ),
                         padding=10,
                         width=500
                     )
                 ], alignment=ft.MainAxisAlignment.CENTER),
-                ft.Card(
-                    content=ft.Container(
-                        padding=10,
-                        content=ft.Column([
-                            GenericText("Configuración de análisis", weight="bold"),
-                            row,
-                        ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
-                    ),
-                    elevation=5
+                ft.Container(
+                    content=ft.Column([
+                        GenericText("Configuración de análisis", weight=ft.FontWeight.BOLD, color=ft.colors.BLUE_GREY_900),
+                        row,
+                    ], spacing=15, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                    padding=ft.Padding(20, 20, 20, 20),
+                    border_radius=10,
+                    bgcolor=ft.colors.WHITE,
+                    shadow=ft.BoxShadow(
+                        spread_radius=1,
+                        blur_radius=15,
+                        color=ft.colors.with_opacity(0.2, ft.colors.BLUE_GREY_900),
+                        offset=ft.Offset(0, 4)
+                    )
                 )
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -56,8 +58,8 @@ class VelocityView(ft.Container):
     def __init__(self):
         super().__init__(
             expand=True,
-            padding=20,
-            bgcolor="white",
+            padding=30,
+            bgcolor=ft.colors.WHITE,
         )
         # Opciones:
         type_options = [
@@ -77,13 +79,14 @@ class VelocityView(ft.Container):
         self.data_input = GenericDropdown("Conjunto de datos", data_options, "1")
         self.actions_accordion = ft.ExpansionPanelList(
             expand=True,
-            visible=False
+            visible=False,
+            spacing=8
         )
         self.intro_section = IntroSection(ft.Row([
             self.type_dropdown,
             self.data_input,
             self.process_button
-        ], alignment=ft.MainAxisAlignment.CENTER))
+        ], alignment=ft.MainAxisAlignment.SPACE_EVENLY, spacing=15))
 
         # Contenedor final donde se mete el desplazamiento y el contenido
         self.content = ft.Container(
@@ -92,7 +95,7 @@ class VelocityView(ft.Container):
                     self.intro_section,
                     self.actions_accordion
                 ],
-                spacing=20,
+                spacing=25,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 scroll=ScrollMode.ALWAYS,
                 on_scroll_interval=0,
@@ -102,7 +105,6 @@ class VelocityView(ft.Container):
         )
 
     def myscroll(self, e: OnScrollEvent):
-        #print(e)
         pass
 
     def build(self):
@@ -111,16 +113,17 @@ class VelocityView(ft.Container):
                 self.intro_section,
                 self.actions_accordion
             ],
-            spacing=20,
+            spacing=25,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
     def on_process_click(self, e):
-        #Guardar el tipo de medición para uso en los análisis
+        # Guardar el tipo de medición para uso en los análisis
         if not hasattr(self.page, 'data') or self.page.data is None:
             self.page.data = {}
         self.page.data['med_type'] = self.type_dropdown.value
         self.page.data['datosProcesar'] = self.data_input.value
+
         # Limpiar el acordeón actual
         self.actions_accordion.controls.clear()
 
@@ -129,9 +132,12 @@ class VelocityView(ft.Container):
         for action in actions:
             section = SignalAnalysisSection(action)
             item = ft.ExpansionPanel(
-                header=ft.Text(f"Analizar {action}"),
+                header=ft.Container(
+                    content=ft.Text(f"Analizar {action}", weight=ft.FontWeight.W_500),
+                    padding=12
+                ),
                 content=section,
-                bgcolor=ft.colors.BLUE_50
+                bgcolor=ft.colors.WHITE
             )
             self.actions_accordion.controls.append(item)
 
@@ -141,7 +147,11 @@ class VelocityView(ft.Container):
         # Mostrar mensaje de éxito
         self.page.snack_bar = ft.SnackBar(
             content=ft.Text(
-                f"Datos listos para análisis - Tipo: {self.type_dropdown.value}, Conjunto: {self.data_input.value}")
+                f"Datos listos para análisis - Tipo: {self.type_dropdown.value}, Conjunto: {self.data_input.value}",
+                color=ft.colors.WHITE
+            ),
+            bgcolor=ft.colors.AMBER_400,
+            #action=ft.SnackBarAction("OK", lambda e: setattr(self.page.snack_bar, "open", False))
         )
         self.page.snack_bar.open = True
         self.page.update()

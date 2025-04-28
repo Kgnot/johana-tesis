@@ -14,18 +14,26 @@ class SignalAnalysisSection(ft.UserControl):
 
         self.time_inputs = ft.Row([
             ft.TextField(
-                label=f"Tiempo inicial para {action_name}",
-                width=200,
+                label=f"Tiempo inicial",
+                width=180,
                 keyboard_type=ft.KeyboardType.NUMBER,
-                suffix_text="seg"
+                suffix_text="seg",
+                border_radius=8,
+                filled=True,
+                bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
+                hint_text="0.0"
             ),
             ft.TextField(
-                label=f"Tiempo final para {action_name}",
-                width=200,
+                label=f"Tiempo final",
+                width=180,
                 keyboard_type=ft.KeyboardType.NUMBER,
-                suffix_text="seg"
+                suffix_text="seg",
+                border_radius=8,
+                filled=True,
+                bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
+                hint_text="0.0"
             ),
-        ], alignment=ft.MainAxisAlignment.CENTER)
+        ], alignment=ft.MainAxisAlignment.CENTER, spacing=20)
 
         self.analyze_button = ProcessButton(
             on_click=self.on_analyze_click,
@@ -44,51 +52,86 @@ class SignalAnalysisSection(ft.UserControl):
         # Aqui los resultcard:
         self.result_card = ResultCard(f"Resultados de {action_name} ")
         self.result_card.visible = False
-        self.chartsXYZ.visible = False
+        self.chartsXYZ.visible = True
         self.chartsJerk.visible = False
         self.chartsAngle.visible = False
-        # Progress indicator durante el análisis
-        self.progress = ft.ProgressRing(width=20, height=20, visible=False)
+
+        ## Aqui iran los contenedores:
+        self.chartsXYZ_container = ft.Container(
+            content=ft.Column([
+                GenericText("Componentes X, Y, Z", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900, size=18),
+                self.chartsXYZ,
+            ], spacing=12),
+        )
+        self.chartsJerk_container = ft.Container(
+            content=ft.Column([
+                GenericText("Análisis Jerk", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900, size=18),
+                self.chartsJerk,
+            ], spacing=12),
+        )
+        self.chartsAngle_container = ft.Container(
+            content=ft.Column([
+                GenericText("Análisis de Ángulos", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900, size=18),
+                self.chartsAngle,
+            ], spacing=12),
+        )
+        self.chartsXYZ_container.visible = False
+        self.chartsJerk_container.visible = False
+        self.chartsAngle_container.visible = False
+        # Progress indicator during analysis
+        self.progress = ft.ProgressRing(
+            width=24,
+            height=24,
+            visible=False,
+            stroke_width=2,
+            color=ft.colors.BLUE_600
+        )
 
     def build(self):
         self.clear_charts()
         return ft.Container(
             content=ft.Column([
-                GenericText(f"Análisis de {self.action_name}", weight="bold", size=20),
                 ft.Row([
                     self.time_inputs,
                     self.analyze_button,
                     self.progress
-                ], alignment=ft.MainAxisAlignment.CENTER),
-                self.chartsXYZ,
-                self.chartsJerk,
-                self.chartsAngle,
+                ], alignment=ft.MainAxisAlignment.CENTER, spacing=16),
+
+                # Charts sections with labels
+                self.chartsXYZ_container,
+                self.chartsJerk_container,
+                self.chartsAngle_container,
                 self.result_card,
-            ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-            padding=20,
-            border_radius=10,
-            border=ft.border.all(2, ft.colors.BLUE_200)
+            ], spacing=24, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+            padding=ft.Padding(24, 24, 24, 24),
+            border_radius=12,
+            border=ft.Border(
+                bottom=ft.BorderSide(2, ft.colors.GREY_300),
+                right=ft.BorderSide(1, ft.colors.GREY_300),
+                left=ft.BorderSide(1, ft.colors.GREY_300),
+                top=ft.BorderSide(1, ft.colors.GREY_300),
+            )
         )
 
     def on_analyze_click(self, e):
         try:
-            # Mostrar progreso
+            # Show progress
             self.progress.visible = True
             self.analyze_button.disabled = True
             self.update()
 
-            # Ejecutar análisis en un hilo separado para no bloquear la UI
+            # Run analysis in a separate thread to avoid UI blocking
             # threading.Thread(target=self.run_analysis, daemon=True).start()
             self.run_analysis()
 
         except Exception as ex:
-            print(f"Error al iniciar análisis desde signal: {ex}")
+            print(f"Error al iniciar análisis desde signal: {ex} ")
             self.progress.visible = False
             self.analyze_button.disabled = False
             self.update()
 
     def run_analysis(self):
-        # Validar inputs
+        # Validate inputs
         ti_str = self.time_inputs.controls[0].value
         tf_str = self.time_inputs.controls[1].value
 
@@ -102,7 +145,7 @@ class SignalAnalysisSection(ft.UserControl):
 
         ti = float(ti_str)
         tf = float(tf_str)
-        # Obtener datos segmentados
+        # Get segmented data
         result = segmul(
             med=self.page.data.get('med_type'),
             datosProcesar=int(self.page.data.get('datosProcesar')),
@@ -111,23 +154,29 @@ class SignalAnalysisSection(ft.UserControl):
             accion=self.action_name
         )
 
-        # limpiar graficos actuales
+        # Clear current charts
         self.clear_charts()
 
-        # Actualizar gráficos XYZ
+        # Update XYZ charts
         chartsXYZ = result.get('gráficos', [])
         for i in range(min(len(chartsXYZ), 3)):
             self.chartsXYZ.controls[i].plot_to_image(chartsXYZ[i])
-        # Actualizar gráficos Jerk
+
+        # Update Jerk charts
         chartsJerk = result.get('graficos_Jerk', [])
         for i in range(min(len(chartsJerk), 3)):
             self.chartsJerk.controls[i].plot_to_image(chartsJerk[i])
-        # Actualizar gráficos de Ángulos
+
+        # Update Angle charts
         chartsAngle = result.get('angulos_graficos', [])
         for i in range(min(len(chartsAngle), 2)):
             self.chartsAngle.controls[i].plot_to_image(chartsAngle[i])
 
         self.init_result_card(result.get('características'), result.get('angulos'))
+
+        self.chartsXYZ_container.visible = True
+        self.chartsJerk_container.visible = True
+        self.chartsAngle_container.visible = True
 
         self.chartsXYZ.visible = True
         self.chartsJerk.visible = True
@@ -136,6 +185,9 @@ class SignalAnalysisSection(ft.UserControl):
         self.chartsXYZ.update()
         self.chartsJerk.update()
         self.chartsAngle.update()
+        self.chartsXYZ_container.update()
+        self.chartsJerk_container.update()
+        self.chartsAngle_container.update()
         self.page.update()
         self.reset_ui()
 
@@ -148,13 +200,12 @@ class SignalAnalysisSection(ft.UserControl):
             chart.update_image(None)
 
     def init_result_card(self, characteristics, angles):
-       # self.result_card.update_characteristics(characteristics)
+        # self.result_card.update_characteristics(characteristics)
         self.result_card.update_angles(angles)
         print(f" Caracteristicas: {characteristics} \n Angles: {angles}")
         self.result_card.visible = True
         self.result_card.update()
         self.reset_ui()
-
 
     def reset_ui(self):
         print("entre a reset ui de signalAnalysis")
@@ -165,7 +216,11 @@ class SignalAnalysisSection(ft.UserControl):
         self.page.update()
 
     def show_error(self, message):
-        self.page.snack_bar = ft.SnackBar(content=ft.Text(message))
+        self.page.snack_bar = ft.SnackBar(
+            content=ft.Text(message, color=ft.colors.WHITE),
+            bgcolor=ft.colors.RED_600,
+            action=ft.SnackBarAction("OK", lambda e: setattr(self.page.snack_bar, "open", False))
+        )
         self.page.snack_bar.open = True
-        # self.reset_ui()
-
+        self.page.update()
+        self.reset_ui()

@@ -1,11 +1,7 @@
 import base64
 import io
-from io import BytesIO
 
 import flet as ft
-from matplotlib import pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-
 
 
 class SignalChart(ft.UserControl):
@@ -14,24 +10,49 @@ class SignalChart(ft.UserControl):
         self.image = ft.Image(
             width=400,
             height=300,
-            fit=ft.ImageFit.CONTAIN
+            fit=ft.ImageFit.CONTAIN,
+            border_radius=ft.border_radius.all(8)
         )
 
     def build(self):
-        return self.image
+        return ft.Container(
+            content=self.image,
+            padding=10,
+            bgcolor=ft.colors.WHITE,
+            border_radius=10,
+            shadow=ft.BoxShadow(blur_radius=2, color=ft.colors.BLACK12)
+        )
 
     def plot_to_image(self, fig):
-        import io
-        import base64
+        """Convierte una figura matplotlib directamente a imagen para Flet"""
+        try:
+            import io
+            import base64
+            import matplotlib.pyplot as plt
 
-        buffer = io.BytesIO()
-        fig.savefig(buffer, format="png")
-        buffer.seek(0)
-        img_bytes = buffer.read()
-        buffer.close()
+            # Configuración para mejor calidad
+            fig.tight_layout()
 
-        self.image.src_base64 = base64.b64encode(img_bytes).decode("utf-8")
-        self.image.update()
+            # Convertir a PNG en memoria
+            buf = io.BytesIO()
+            fig.savefig(buf, format='png',
+                        dpi=100,  # Ajusta según necesidad
+                        bbox_inches='tight',
+                        pad_inches=0.1)
+            buf.seek(0)
+
+            # Codificar como base64
+            img_base64 = base64.b64encode(buf.read()).decode('utf-8')
+            buf.close()
+
+            # Actualizar la imagen
+            self.image.src_base64 = img_base64
+            self.update()
+
+        except Exception as e:
+            print(f"Error al convertir figura: {e}")
+        finally:
+            plt.close(fig)  # Cierra la figura para liberar memoria
 
     def update_image(self, pil_image):
         """Actualiza la imagen del gráfico usando una imagen PIL"""

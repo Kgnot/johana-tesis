@@ -85,3 +85,4 @@ def featuresvel(senial, datosfinal_total):
 
     # Retornar las características y los gráficos guardados
     return data, respuesta_graficos
+

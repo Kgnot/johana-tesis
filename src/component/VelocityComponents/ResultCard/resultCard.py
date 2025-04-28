@@ -8,7 +8,7 @@ class ResultCard(ft.UserControl):
         super().__init__()
         self.title = title
 
-        # Inicializar componentes para mostrar características
+        # Initialize components to display characteristics
         self.characteristics_tabs = ft.Tabs(
             selected_index=0,
             animation_duration=300,
@@ -16,37 +16,93 @@ class ResultCard(ft.UserControl):
             expand=True
         )
 
-        # Inicializar tabla para ángulos
+        # Initialize table for angles
         self.angles_table = ft.DataTable(
-            border=ft.border.all(1, ft.colors.GREY_400),
-            border_radius=10,
-            vertical_lines=ft.border.BorderSide(1, ft.colors.GREY_400),
-            horizontal_lines=ft.border.BorderSide(1, ft.colors.GREY_400),
+            border=ft.border.all(1, ft.colors.GREY_300),
+            border_radius=8,
+            vertical_lines=ft.border.BorderSide(1, ft.colors.GREY_300),
+            horizontal_lines=ft.border.BorderSide(1, ft.colors.GREY_300),
             columns=[
-                ft.DataColumn(GenericText("Ángulo")),
-                ft.DataColumn(GenericText("Mínimo")),
-                ft.DataColumn(GenericText("Máximo")),
-                ft.DataColumn(GenericText("Rango"))
+                ft.DataColumn(GenericText("Ángulo", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900)),
+                ft.DataColumn(GenericText("Mínimo", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900)),
+                ft.DataColumn(GenericText("Máximo", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900)),
+                ft.DataColumn(GenericText("Rango", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900))
             ],
-            rows=[]
+            rows=[],
+            heading_row_height=50,
+            # data_row_height=45,
+            heading_row_color=ft.colors.with_opacity(0.05, ft.colors.BLUE_GREY_800),
         )
 
     def build(self):
-        return ft.Card(
-            content=ft.Container(
-                content=ft.Column([
-                    GenericText(self.title, size=20, weight=ft.FontWeight.BOLD),
-                    ft.Divider(),
-                    GenericText("Características por componente:", weight=ft.FontWeight.BOLD),
-                    self.characteristics_tabs,
-                    ft.Divider(),
-                    GenericText("Análisis de ángulos:", weight=ft.FontWeight.BOLD),
-                    self.angles_table
+        return ft.Container(
+            content=ft.Column([
+                ft.Row([
+                    ft.Icon(ft.icons.ANALYTICS, color=ft.colors.BLUE_600),
+                    GenericText(self.title, size=20, weight=ft.FontWeight.W_600, color=ft.colors.BLUE_GREY_700),
                 ], spacing=10),
-                padding=20
-            ),
-            elevation=4
+                ft.Divider(height=1, color=ft.colors.GREY_300),
+
+                ft.Container(
+                    content=ft.Column([
+                        GenericText("Análisis de ángulos", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_800),
+                        self.angles_table
+                    ], spacing=12),
+                    padding=ft.Padding(0, 10, 0, 0)
+                ),
+
+                ft.Container(
+                    content=ft.Column([
+                        GenericText("Características por componente", weight=ft.FontWeight.W_500,
+                                    color=ft.colors.BLUE_800),
+                        self.characteristics_tabs
+                    ], spacing=12),
+                    padding=ft.Padding(0, 10, 0, 0)
+                )
+            ], spacing=16),
+            padding=20,
+            border_radius=12,
+            bgcolor=ft.colors.WHITE,
+            shadow=ft.BoxShadow(
+                spread_radius=0,
+                blur_radius=12,
+                color=ft.colors.with_opacity(0.15, ft.colors.GREY_800),
+                offset=ft.Offset(0, 2)
+            )
         )
+
+    def update_angles(self, angles_df):
+        """Actualiza la tabla de ángulos con los datos del DataFrame"""
+        self.angles_table.rows.clear()
+        print(f"Entre a resultCard y estos son los datos de la angulos petes: {angles_df}")
+
+        if angles_df is None or angles_df.empty:
+            return
+
+        # Convert DataFrame to table rows
+        try:
+            for _, row in angles_df.iterrows():
+                self.angles_table.rows.append(
+                    ft.DataRow(
+                        cells=[
+                            ft.DataCell(GenericText(str(row['Ángulo']), weight=ft.FontWeight.W_500)),
+                            ft.DataCell(GenericText(f"{row['Ángulo mínimo']:.4f}", color=ft.colors.BLUE_GREY_900)),
+                            ft.DataCell(GenericText(f"{row['Ángulo máximo']:.4f}", color=ft.colors.BLUE_GREY_900)),
+                            ft.DataCell(GenericText(f"{row['Rango']:.4f}", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900))
+                        ],
+                        on_select_changed=lambda e: self.highlight_row(e)
+                    )
+                )
+        except Exception as e:
+            print(f"Error al actualizar tabla de ángulos: {e}")
+
+        # Update UI
+        self.update()
+
+    def highlight_row(self, e):
+        """Highlight selected row when clicked (visual feedback)"""
+        # This would need additional implementation for complete functionality
+        pass
 
     def update_characteristics(self, characteristics_data):
         self.characteristics_tabs.tabs.clear()
@@ -141,27 +197,3 @@ class ResultCard(ft.UserControl):
 
         self.update()
 
-    def update_angles(self, angles_df):
-        """Actualiza la tabla de ángulos con los datos del DataFrame"""
-        self.angles_table.rows.clear()
-        print(f"Entre a resultCard y estos son los datos de la angulos petes: {angles_df}")
-
-        if angles_df is None or angles_df.empty:
-            return
-
-        # Convertir DataFrame a filas de la tabla
-        try:
-            for _, row in angles_df.iterrows():
-                self.angles_table.rows.append(
-                    ft.DataRow(cells=[
-                        ft.DataCell(GenericText(str(row['Ángulo']))),
-                        ft.DataCell(GenericText(f"{row['Ángulo mínimo']:.4f}")),
-                        ft.DataCell(GenericText(f"{row['Ángulo máximo']:.4f}")),
-                        ft.DataCell(GenericText(f"{row['Rango']:.4f}"))
-                    ])
-                )
-        except Exception as e:
-            print(f"Error al actualizar tabla de ángulos: {e}")
-
-        # Actualizar UI
-        self.update()
