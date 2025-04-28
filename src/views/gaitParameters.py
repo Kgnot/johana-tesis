@@ -3,7 +3,7 @@ import flet as ft
 from src.component.text.GenericText import GenericText
 
 
-class GaitParameters(ft.Component):
+class GaitParameters(ft.Container):
     def __init__(self):
         super().__init__(
             expand=True,

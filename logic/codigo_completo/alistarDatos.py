@@ -3,11 +3,13 @@ import pandas as pd
 
 def datosProcesar(dat: int) -> list:
     # Variables que usaremos en el filtro Butterworth
+    print("en datosProcesar: dat: ",dat)
     senalesgenerales = []
     senalespasos = []
-
+    #Ruta del script actual xd:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     # Carpeta base
-    carpeta2_datos: str = "../../data/Tdatos"
+    carpeta2_datos = os.path.normpath(os.path.join(script_dir, "..", "..", "data", "Tdatos"))
 
     # Corrigiendo los if
     if dat == 1:
@@ -19,11 +21,10 @@ def datosProcesar(dat: int) -> list:
     elif dat == 4:
         carpeta2_datos = os.path.join(carpeta2_datos, "POSTERIORI", "Experimental")
     else:
-        raise ValueError("El valor de 'dat' debe ser 1, 2, 3 o 4.")
+        raise ValueError("El valor de 'dat' debe ser 1, 2, 3 o 4. (func. AlistarDatos -> alistarDatos.py)")
 
     # Luego de los if:
     data = os.listdir(carpeta2_datos)
-#    print(f"archivos encontrados: {data}")
     for archivo in data:
         archivo_csv = os.path.join(carpeta2_datos, archivo)
         df = pd.read_csv(archivo_csv, delim_whitespace=True, skiprows=12)

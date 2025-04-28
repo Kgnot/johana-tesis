@@ -1,8 +1,12 @@
+import io
+
 import numpy as np
+from PIL import Image
 from matplotlib import pyplot as plt
 from tabulate import tabulate
 
 
+## Aqui tenemos que guardar dos respuestas, graficos y tabla
 def featuresac(senial):
     # Inicializa listas para almacenar las características
     rms_list = []
@@ -17,34 +21,35 @@ def featuresac(senial):
     jerkrms = []
     jerkmedia = []
     tiempot = []
+    jerk_graficos = []
 
     # Asegúrate de que la señal sea un array de NumPy
-    señalf = np.array(senial)
+    senialf = np.array(senial)
 
     lab = ['Acc_X', 'Acc_Y', 'Acc_Z']
-    nc = señalf.shape[1]
-    print(nc)
+    nc = senialf.shape[1]
     for y in range(nc):
-        columna = señalf[:, y]  # Selecciona la columna i
-        # Cálculo de las características
-        li = len(señalf[:, y]) / 100
-        lo = len(señalf[:, y])
+        columna = senialf[:, y]
+        li = len(columna) / 100
+        lo = len(columna)
         tiempot.append(li)
         tm = np.random.uniform(0, li, lo)
         tiempo = np.sort(tm)
-        rms = np.sqrt(np.mean(columna ** 2))  # Cálculo del RMS
+
+        rms = np.sqrt(np.mean(columna ** 2))
         rms_list.append(rms)
-        potencia = np.sqrt((sum(columna)) ** 2)  # Media
+        potencia = np.sqrt((sum(columna)) ** 2)
         potencia_list.append(potencia)
-        energia = (sum(columna)) ** 2  # Desviación estándar
+        energia = (sum(columna)) ** 2
         energia_list.append(energia)
-        mini = np.min(columna)  # Mínimo
+        mini = np.min(columna)
         minimo_list.append(mini)
-        maxi = np.max(columna)  # Máximo
+        maxi = np.max(columna)
         maximo_list.append(maxi)
-        rango = maxi - mini  # Rango
+        rango = maxi - mini
         rango_list.append(rango)
-        jerk = np.gradient(señalf[:, y], tiempo)
+
+        jerk = np.gradient(columna, tiempo)
         jerkl.append(jerk)
         jerkma = np.max(jerk)
         jerkmax.append(jerkma)
@@ -54,18 +59,30 @@ def featuresac(senial):
         jerkrms.append(jerkr)
         jerkmed = np.mean(jerk)
         jerkmedia.append(jerkmed)
-        plt.plot(tiempo, jerk)
-        plt.title(f"Jerk vs Tiempo {lab[y]}")
-        plt.xlabel("Tiempo (s)")
-        plt.ylabel("Jerk (m/s³)")
-        plt.grid(True)
-        plt.show()
-        lab = ['Acc_x', 'Acc_y', 'Acc_z']
-        # headers = ["Características"] + [f"Persona {i+1}" for i in range(len(datosfinal_total))]
-        headers = ["Características", "Persona 1"]
-        caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
-                           "Rango Aceleraciones", "Jerk Máximo (m/s³)", "Jerk Mínimo (m/s³)", "Jerk Medio (m/s³)",
-                           "Jerk RMS (m/s³)"]
+
+        # Crear y guardar gráfico
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.plot(tiempo, jerk)
+        ax.set_title(f"Jerk vs Tiempo {lab[y]}")
+        ax.set_xlabel("Tiempo (s)")
+        ax.set_ylabel("Jerk (m/s³)")
+        ax.grid(True)
+
+        img_buf = io.BytesIO()
+        fig.savefig(img_buf, format='png')
+        img_buf.seek(0)
+        img = Image.open(img_buf)
+        jerk_graficos.append(img)
+
+        plt.close(fig)  # Cierra cada figura inmediatamente
+
+    # Crear tabla de características
+    headers = ["Características", "Persona 1"]
+    caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
+                       "Rango Aceleraciones", "Jerk Máximo (m/s³)", "Jerk Mínimo (m/s³)", "Jerk Medio (m/s³)",
+                       "Jerk RMS (m/s³)"]
+    data = []
+    for y in range(nc):
         data = [
             [caracteristicas[0], rms_list[y]],
             [caracteristicas[1], tiempot[y]],
@@ -80,8 +97,9 @@ def featuresac(senial):
             [caracteristicas[10], jerkrms[y]]
         ]
 
-        # Número de la tabla
-
         # Imprimir la tabla
         print(f"Tabla {lab[y]}. Resultados por sujeto")
         print(tabulate(data, headers=headers, tablefmt="fancy_grid"))
+    plt.close('all')
+
+    return data, jerk_graficos

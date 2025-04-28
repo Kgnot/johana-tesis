@@ -1,9 +1,11 @@
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
+import io
+from PIL import Image
 from tabulate import tabulate
 
 
-def featuresvel(senial,datosfinal_total):
+def featuresvel(senial, datosfinal_total):
     # Inicializa listas para almacenar las características
     rms_list = []
     potencia_list = []
@@ -12,22 +14,24 @@ def featuresvel(senial,datosfinal_total):
     maximo_list = []
     rango_list = []
     tiempot = []
+    respuesta_graficos = []
 
     # Asegúrate de que la señal sea un array de NumPy
-    señalf = np.array(senial)
+    senialf = np.array(senial)
 
     # Verifica que la señal tenga al menos 2 dimensiones
-    if señalf.ndim < 2:
+    if senialf.ndim < 2:
         print("Error: La señal debe tener al menos 2 dimensiones.")
-        return None
-    lab = ['Acc_X', 'Acc_Y', 'Acc_Z']
-    nc = señalf.shape[1]
+        return None, None  # Retorna None si la señal no es válida
+
+    lab = ['V.Angular_x', 'Ve.Angular_y', 'V.angular_z']
+    nc = senialf.shape[1]
     print(nc)  # Número de columnas en la señal
     for i in range(nc):
-        columna = señalf[:, i]  # Selecciona la columna i
+        columna = senialf[:, i]  # Selecciona la columna i
         # Cálculo de las características
-        li = len(señalf[:, i]) / 100
-        lo = len(señalf[:, i])
+        li = len(senialf[:, i]) / 100
+        lo = len(senialf[:, i])
         tiempot.append(li)
         tm = np.random.uniform(0, li, lo)
         tiempo = np.sort(tm)
@@ -43,11 +47,29 @@ def featuresvel(senial,datosfinal_total):
         maximo_list.append(maxi)
         rango = maxi - mini  # Rango
         rango_list.append(rango)
-        lab = ['V.Angular_x', 'Ve.Angular_y', 'V.angular_z']
-        headers = ["Características"] + [f"Persona {i + 1}" for i in range(len(datosfinal_total))]
-        caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
-                           "Rango Velocidades"]
-        data = [
+
+        # Crear la figura para graficar la velocidad angular vs tiempo
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.plot(tiempo, columna)
+        ax.set_title(f"Velocidad Angular vs Tiempo {lab[i]}")
+        ax.set_xlabel("Tiempo (s)")
+        ax.set_ylabel("Velocidad Angular (rad/s)")
+        ax.grid(True)
+
+        # Agregar la imagen a la lista de gráficos
+        respuesta_graficos.append(fig)
+
+        # Limpiar la figura después de usarla para evitar que se acumulen recursos
+        #plt.close(fig)
+
+    # Definir las características para la tabla
+    caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
+                       "Rango Velocidades"]
+
+    # Crear los datos para la tabla
+    data = []
+    for i in range(nc):
+        data.append([
             [caracteristicas[0], rms_list[i]],
             [caracteristicas[1], tiempot[i]],
             [caracteristicas[2], potencia_list[i]],
@@ -55,10 +77,11 @@ def featuresvel(senial,datosfinal_total):
             [caracteristicas[4], maximo_list[i]],
             [caracteristicas[5], minimo_list[i]],
             [caracteristicas[6], rango_list[i]],
-        ]
-
-        # Número de la tabla
+        ])
 
         # Imprimir la tabla
         print(f"Tabla {lab[i]}. Resultados por sujeto\n")
-        print(tabulate(data, headers=headers, tablefmt="fancy_grid"))
+        print(tabulate(data[i], headers=["Características", f"Persona {i + 1}"], tablefmt="fancy_grid"))
+
+    # Retornar las características y los gráficos guardados
+    return data, respuesta_graficos
