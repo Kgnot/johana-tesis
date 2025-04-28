@@ -1,9 +1,5 @@
-import io
-
 import numpy as np
-from PIL import Image
 from matplotlib import pyplot as plt
-from tabulate import tabulate
 
 
 ## Aqui tenemos que guardar dos respuestas, graficos y tabla

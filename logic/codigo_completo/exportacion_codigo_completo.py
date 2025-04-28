@@ -36,7 +36,6 @@ def procesar_datos(datos_array):
 
 def extraclaims(datosProcesar: int):
     datosfinal_total = filtroButterworth_DatosFinalTotal(datosProcesar)
-    resultados = []
     ultimoDatoFinal_total = datosfinal_total[-1]
     DT = None
     # for datos in datosfinal_total:
@@ -106,12 +105,11 @@ def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
                                               datosfinal_total)  # Me genera lo mismo, graficos y una tabla,
 
         datos_segmul = {
-            "acción": accion,
             "gráficos": graficosXYZ,
-            "angulos": angulos,
+            "graficos_Jerk": jerk_graficos,
             "angulos_graficos": graficos_angulos,
+            "angulos": angulos,
             "características": data,
-            "graficos_Jerk": jerk_graficos
         }
     return datos_segmul
 
