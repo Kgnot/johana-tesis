@@ -1,7 +1,7 @@
 from scipy.signal import butter, filtfilt
 import numpy as np
 import matplotlib.pyplot as plt
-from logic.codigo_completo.alistarDatos import datosProcesar
+from logic.estudio_seniales.alistarDatos import datosProcesar
 
 
 def filtroButterworth_DatosFinalTotal(datProc: int) -> list:

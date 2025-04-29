@@ -24,12 +24,13 @@ def featuresac(senial):
 
     lab = ['Acc_X', 'Acc_Y', 'Acc_Z']
     nc = senialf.shape[1]
+
     for y in range(nc):
         columna = senialf[:, y]
         li = len(columna) / 100
         lo = len(columna)
         tiempot.append(li)
-        tm = np.random.uniform(0, li, lo)
+        tm = np.linspace(0, li, lo) #np.random.uniform(0, li, lo)
         tiempo = np.sort(tm)
 
         rms = np.sqrt(np.mean(columna ** 2))

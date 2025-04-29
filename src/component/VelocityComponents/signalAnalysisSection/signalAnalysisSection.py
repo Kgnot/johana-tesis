@@ -1,6 +1,6 @@
 import threading
 import flet as ft
-from logic.codigo_completo.exportacion_codigo_completo import segmul
+from logic.estudio_seniales.EstudioSenalesCod import segmul
 from src.component.VelocityComponents.ResultCard.resultCard import ResultCard
 from src.component.VelocityComponents.SignalChart.signalChart import SignalChart
 from src.component.VelocityComponents.processButton.ProcessButton import ProcessButton
@@ -65,7 +65,7 @@ class SignalAnalysisSection(ft.UserControl):
         )
         self.chartsJerk_container = ft.Container(
             content=ft.Column([
-                GenericText("Análisis Jerk", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900, size=18),
+                GenericText("Análisis", weight=ft.FontWeight.W_500, color=ft.colors.BLUE_GREY_900, size=18),
                 self.chartsJerk,
             ], spacing=12),
         )
@@ -171,25 +171,11 @@ class SignalAnalysisSection(ft.UserControl):
         chartsAngle = result.get('angulos_graficos', [])
         for i in range(min(len(chartsAngle), 2)):
             self.chartsAngle.controls[i].plot_to_image(chartsAngle[i])
-
+        ##Actualizamos la seccion de chart
+        self.resetCharts_section()
+        #iniciamos las tablas caracteristicas y angulos
         self.init_result_card(result.get('características'), result.get('angulos'))
 
-        self.chartsXYZ_container.visible = True
-        self.chartsJerk_container.visible = True
-        self.chartsAngle_container.visible = True
-
-        self.chartsXYZ.visible = True
-        self.chartsJerk.visible = True
-        self.chartsAngle.visible = True
-
-        self.chartsXYZ.update()
-        self.chartsJerk.update()
-        self.chartsAngle.update()
-        self.chartsXYZ_container.update()
-        self.chartsJerk_container.update()
-        self.chartsAngle_container.update()
-        self.page.update()
-        self.reset_ui()
 
     def clear_charts(self):
         for chart in self.chartsXYZ.controls:
@@ -200,9 +186,9 @@ class SignalAnalysisSection(ft.UserControl):
             chart.update_image(None)
 
     def init_result_card(self, characteristics, angles):
-        # self.result_card.update_characteristics(characteristics)
+        if characteristics:
+            self.result_card.update_characteristics(characteristics)
         self.result_card.update_angles(angles)
-        print(f" Caracteristicas: {characteristics} \n Angles: {angles}")
         self.result_card.visible = True
         self.result_card.update()
         self.reset_ui()
@@ -223,4 +209,21 @@ class SignalAnalysisSection(ft.UserControl):
         )
         self.page.snack_bar.open = True
         self.page.update()
+        self.reset_ui()
+
+    def resetCharts_section(self):
+        self.chartsXYZ_container.visible = True
+        self.chartsJerk_container.visible = True
+        self.chartsAngle_container.visible = True
+
+        self.chartsXYZ.visible = True
+        self.chartsJerk.visible = True
+        self.chartsAngle.visible = True
+
+        self.chartsXYZ.update()
+        self.chartsJerk.update()
+        self.chartsAngle.update()
+        self.chartsXYZ_container.update()
+        self.chartsJerk_container.update()
+        self.chartsAngle_container.update()
         self.reset_ui()

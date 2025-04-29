@@ -6,7 +6,6 @@ from logic.openSim.openSim import execModelo
 from src.component.sidebar.Sidebar import Sidebar
 from src.component.variableComponent.ContentContainer import ContentContainer
 from src.frame.Frame import Frame
-from src.views.AccelerationsView import AccelerationsView
 from src.views.ActivityRecognition import ActivityRecognition
 from src.views.HomeView import HomeView
 from src.views.ManualView import ManualView
@@ -23,7 +22,6 @@ class ModelApp:
         self.content_container:ContentContainer = None
         # Vistas y páginas:
         self.homePage:HomeView = HomeView()
-        self.accelerationsView:AccelerationsView = AccelerationsView()
         self.velocityView:VelocityView = VelocityView()
         self.activityRecognition:ActivityRecognition = ActivityRecognition()
         self.gaitParameter: GaitParameters = GaitParameters()
@@ -49,14 +47,12 @@ class ModelApp:
         elif e.control.selected_index == 0:
             new_content = self.homePage
         elif e.control.selected_index == 1:
-            new_content = self.accelerationsView
-        elif e.control.selected_index == 2:
             new_content = self.velocityView
-        elif e.control.selected_index == 3:
+        elif e.control.selected_index == 2:
             new_content = self.gaitParameter
-        elif e.control.selected_index == 4:
+        elif e.control.selected_index == 3:
             new_content = self.activityRecognition
-        elif e.control.selected_index == 5:
+        elif e.control.selected_index == 4:
             new_content = self.manualView
 
         if new_content:
