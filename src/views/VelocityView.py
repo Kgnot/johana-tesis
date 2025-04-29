@@ -89,7 +89,13 @@ class VelocityView(ft.Container):
         ], alignment=ft.MainAxisAlignment.SPACE_EVENLY, spacing=15))
 
         # Contenedor final donde se mete el desplazamiento y el contenido
-        self.content = ft.Container(
+        self.content = self.build()
+
+    def myscroll(self, e: OnScrollEvent):
+        pass
+
+    def build(self):
+        return ft.Container(
             content=ft.Column(
                 controls=[
                     self.intro_section,
@@ -102,19 +108,6 @@ class VelocityView(ft.Container):
                 on_scroll=self.myscroll
             ),
             expand=True,
-        )
-
-    def myscroll(self, e: OnScrollEvent):
-        pass
-
-    def build(self):
-        return ft.Column(
-            controls=[
-                self.intro_section,
-                self.actions_accordion
-            ],
-            spacing=25,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
     def on_process_click(self, e):
@@ -151,7 +144,6 @@ class VelocityView(ft.Container):
                 color=ft.colors.WHITE
             ),
             bgcolor=ft.colors.AMBER_400,
-            #action=ft.SnackBarAction("OK", lambda e: setattr(self.page.snack_bar, "open", False))
         )
         self.page.snack_bar.open = True
         self.page.update()

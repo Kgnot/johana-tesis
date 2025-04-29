@@ -29,7 +29,6 @@ def procesar_datos(datos_array):
 def extraclaims(datosProcesar: int):
     datosfinal_total = filtroButterworth_DatosFinalTotal(datosProcesar)
     ultimoDatoFinal_total = datosfinal_total[-1]
-    DT = None
     # Escojemos el último
     DT, seniales = procesar_datos(ultimoDatoFinal_total)
     return DT, seniales, datosfinal_total
