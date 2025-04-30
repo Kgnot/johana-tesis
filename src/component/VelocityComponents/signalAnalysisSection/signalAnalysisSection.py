@@ -1,40 +1,18 @@
-import threading
 import flet as ft
 from logic.estudio_seniales.EstudioSenalesCod import segmul
+from src.component.TimeInputs.TimeInputs import timeImputs
 from src.component.VelocityComponents.ResultCard.resultCard import ResultCard
-from src.component.VelocityComponents.SignalChart.signalChart import SignalChart
-from src.component.VelocityComponents.processButton.ProcessButton import ProcessButton
+from src.component.SignalChart.signalChart import SignalChart
+from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
+
 
 
 class SignalAnalysisSection(ft.UserControl):
     def __init__(self, action_name):
         super().__init__()
         self.action_name = action_name
-
-        self.time_inputs = ft.Row([
-            ft.TextField(
-                label=f"Tiempo inicial",
-                width=180,
-                keyboard_type=ft.KeyboardType.NUMBER,
-                suffix_text="seg",
-                border_radius=8,
-                filled=True,
-                bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
-                hint_text="0.0"
-            ),
-            ft.TextField(
-                label=f"Tiempo final",
-                width=180,
-                keyboard_type=ft.KeyboardType.NUMBER,
-                suffix_text="seg",
-                border_radius=8,
-                filled=True,
-                bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
-                hint_text="0.0"
-            ),
-        ], alignment=ft.MainAxisAlignment.CENTER, spacing=20)
-
+        self.time_inputs = timeImputs()
         self.analyze_button = ProcessButton(
             on_click=self.on_analyze_click,
             txt=f"Analizar {action_name}"

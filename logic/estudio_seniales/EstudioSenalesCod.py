@@ -4,35 +4,7 @@ from matplotlib import pyplot as plt
 from logic.estudio_seniales.caracteristicaAceleracion import featuresac
 from logic.estudio_seniales.caracteristicaVelocidad import featuresvel
 from logic.estudio_seniales.extraccionAngulos import artan
-from logic.estudio_seniales.filtroButterworth import filtroButterworth_DatosFinalTotal
-
-
-
-def procesar_datos(datos_array):
-    DT = np.array(datos_array)
-    # Separar aceleraciones y velocidades
-    da = DT[:, 0:3]
-    dv = DT[:, 3:6]
-    da = (da - da.min(axis=0)) / (da.max(axis=0) - da.min(axis=0))
-    DT = np.hstack((da, dv))
-    # DT = np.array(DT) # Esto sobra son lo mismo xd
-    # Crear diccionario de señales
-    seniales = {
-        'señalac': [DT[:, 0:3]],  # Aceleraciones
-        'señalve': [DT[:, 3:6]],  # Velocidades
-        'DT': DT  # Datos completos
-    }
-
-    return DT, seniales
-
-
-def extraclaims(datosProcesar: int):
-    datosfinal_total = filtroButterworth_DatosFinalTotal(datosProcesar)
-    ultimoDatoFinal_total = datosfinal_total[-1]
-    DT = None
-    # Escojemos el último
-    DT, seniales = procesar_datos(ultimoDatoFinal_total)
-    return DT, seniales, datosfinal_total
+from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
 
 
 # Este va por segulac y segmulvel
@@ -41,7 +13,7 @@ def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
     datos_segmul = {}  ## Esto sseran todas las graficas y datos de retorno qu eharemos
 
     ###
-    DT, seniales, datosfinal_total = extraclaims(datosProcesar)
+    DT, seniales, datosfinal_total = extraer_seniales_filtradas(datosProcesar)
 
     # Seleccionar señal según el tipo de medición
     if med == "Acc":

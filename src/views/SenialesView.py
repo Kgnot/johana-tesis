@@ -2,9 +2,9 @@ import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
 
-from src.component.VelocityComponents.dropdown.genericDropdown import GenericDropdown, DropType
+from src.component.dropdown.genericDropdown import GenericDropdown, DropType
 from src.component.VelocityComponents.signalAnalysisSection.signalAnalysisSection import SignalAnalysisSection
-from src.component.VelocityComponents.processButton.ProcessButton import ProcessButton
+from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
 
 
@@ -54,7 +54,7 @@ class IntroSection(ft.Column):
         pass
 
 
-class VelocityView(ft.Container):
+class SenialesView(ft.Container):
     def __init__(self):
         super().__init__(
             expand=True,
@@ -89,7 +89,13 @@ class VelocityView(ft.Container):
         ], alignment=ft.MainAxisAlignment.SPACE_EVENLY, spacing=15))
 
         # Contenedor final donde se mete el desplazamiento y el contenido
-        self.content = ft.Container(
+        self.content = self.build()
+
+    def myscroll(self, e: OnScrollEvent):
+        pass
+
+    def build(self):
+        return ft.Container(
             content=ft.Column(
                 controls=[
                     self.intro_section,
@@ -104,19 +110,6 @@ class VelocityView(ft.Container):
             expand=True,
         )
 
-    def myscroll(self, e: OnScrollEvent):
-        pass
-
-    def build(self):
-        return ft.Column(
-            controls=[
-                self.intro_section,
-                self.actions_accordion
-            ],
-            spacing=25,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        )
-
     def on_process_click(self, e):
         # Guardar el tipo de medición para uso en los análisis
         if not hasattr(self.page, 'data') or self.page.data is None:
@@ -128,7 +121,9 @@ class VelocityView(ft.Container):
         self.actions_accordion.controls.clear()
 
         # Crear secciones para cada acción
-        actions = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse']
+        actions_vel = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse']
+        actions_acc = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse', 'Caminata de ida','Caminata de vuelta']
+        actions = actions_acc if self.page.data['med_type'] == 'Acc' else actions_vel
         for action in actions:
             section = SignalAnalysisSection(action)
             item = ft.ExpansionPanel(
@@ -151,7 +146,6 @@ class VelocityView(ft.Container):
                 color=ft.colors.WHITE
             ),
             bgcolor=ft.colors.AMBER_400,
-            #action=ft.SnackBarAction("OK", lambda e: setattr(self.page.snack_bar, "open", False))
         )
         self.page.snack_bar.open = True
         self.page.update()
