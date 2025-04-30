@@ -2,9 +2,9 @@ import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
 
-from src.component.VelocityComponents.dropdown.genericDropdown import GenericDropdown, DropType
+from src.component.dropdown.genericDropdown import GenericDropdown, DropType
 from src.component.VelocityComponents.signalAnalysisSection.signalAnalysisSection import SignalAnalysisSection
-from src.component.VelocityComponents.processButton.ProcessButton import ProcessButton
+from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
 
 
@@ -54,7 +54,7 @@ class IntroSection(ft.Column):
         pass
 
 
-class VelocityView(ft.Container):
+class SenialesView(ft.Container):
     def __init__(self):
         super().__init__(
             expand=True,
@@ -121,7 +121,9 @@ class VelocityView(ft.Container):
         self.actions_accordion.controls.clear()
 
         # Crear secciones para cada acción
-        actions = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse']
+        actions_vel = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse']
+        actions_acc = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse', 'Caminata de ida','Caminata de vuelta']
+        actions = actions_acc if self.page.data['med_type'] == 'Acc' else actions_vel
         for action in actions:
             section = SignalAnalysisSection(action)
             item = ft.ExpansionPanel(

@@ -5,14 +5,14 @@ import pywt
 from matplotlib import pyplot as plt
 from sklearn.decomposition import FastICA
 
-from logic.estudio_seniales.EstudioSenalesCod import extraclaims
+from logic.estudio_seniales.EstudioSenalesCod import extraer_seniales_filtradas
 
 
 ## señalwa es el mismo DT
 ## Necesitamos un dato a procesar:
 def wavelet(dato_procesar: int):
     # llamamos a extraclaims para DT:
-    DT, seniales, datosfinal_total = extraclaims(dato_procesar)
+    DT, seniales, datosfinal_total = extraer_seniales_filtradas(dato_procesar)
     senialw = DT
     columns = ['acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z']
     col_idx = {name: i for i, name in enumerate(columns)}

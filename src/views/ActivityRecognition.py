@@ -3,8 +3,8 @@ from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
 
 from src.component.ActivityRecognition.ResultActivityRecognition import ResultActivityRecognition
-from src.component.VelocityComponents.dropdown.genericDropdown import DropType, GenericDropdown
-from src.component.VelocityComponents.processButton.ProcessButton import ProcessButton
+from src.component.dropdown.genericDropdown import DropType, GenericDropdown
+from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
 
 

@@ -34,15 +34,4 @@ def filtroButterworth_DatosFinalTotal(datProc: int) -> list:
         datosfinal = np.array(datosfinal).T  # Transponemos para que quede igual que original
         datosfinal_total.append(datosfinal)
 
-    # Graficamos la señal original y la señal filtrada de la primer componente
-    # plt.figure(figsize=(10, 5))
-    # plt.plot(senial_original[:, 0], label="Señal Original")
-    # plt.plot(datosfinal[:, 0], label="Señal Filtrada", linestyle='--')
-    # plt.title(f"Comparación de Señales {Listado[0]}")
-    # plt.xlabel("Tiempo (muestras)")
-    # plt.ylabel("Amplitud (normalizada)")
-    # plt.legend()
-    # plt.grid(True)
-    # plt.show()
-
     return datosfinal_total

@@ -9,7 +9,7 @@ from src.frame.Frame import Frame
 from src.views.ActivityRecognition import ActivityRecognition
 from src.views.HomeView import HomeView
 from src.views.ManualView import ManualView
-from src.views.VelocityView import VelocityView
+from src.views.SenialesView import SenialesView
 from src.views.gaitParameters import GaitParameters
 
 
@@ -22,7 +22,7 @@ class ModelApp:
         self.content_container:ContentContainer = None
         # Vistas y páginas:
         self.homePage:HomeView = HomeView()
-        self.velocityView:VelocityView = VelocityView()
+        self.velocityView:SenialesView = SenialesView()
         self.activityRecognition:ActivityRecognition = ActivityRecognition()
         self.gaitParameter: GaitParameters = GaitParameters()
         self.manualView:ManualView = ManualView("https://bibliotecadigital.ilce.edu.mx/Colecciones/CuentosMas/Cenicienta.pdf",
@@ -30,6 +30,10 @@ class ModelApp:
 
     def start(self):
         ft.app(target=self.run)
+
+    def start_web(self):
+        ft.app(target=self.run, port=9000, view=ft.WEB_BROWSER)
+
 
     def run(self, page: ft.Page):
         self.frame = Frame(page) #Creamos el frame

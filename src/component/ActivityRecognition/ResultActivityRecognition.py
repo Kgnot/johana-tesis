@@ -1,7 +1,7 @@
 import flet as ft
 
 from logic.recon.ReconocimientoActividades import wavelet
-from src.component.VelocityComponents.SignalChart.signalChart import SignalChart
+from src.component.SignalChart.signalChart import SignalChart
 from src.component.text.GenericText import GenericText
 
 
