@@ -83,41 +83,39 @@ class ResultGaitParameter(ft.Container):
     def init_charts(self, dato_procesar, Ti, Tf):
         # Limpiar gráficas antes de iniciar
         self.clear_charts()
-
-        # Mostrar un indicador de carga (opcional)
-        # self.update() si quieres actualizar la UI antes de procesar
-
         try:
-            # Obtener los datos de marcha
             response_marcha = marcha(dato_procesar, Ti, Tf)
 
             if not response_marcha:
                 print("No se pudo obtener marcha.")
                 return False
 
-            # Verificar que todas las gráficas estén presentes
             required_keys = ['grafica_normalizada', 'grafica_velocidad', 'grafica_distancia']
             if not all(key in response_marcha for key in required_keys):
                 print(f"Faltan gráficas en la respuesta: {[k for k in required_keys if k not in response_marcha]}")
                 return False
 
-            # Asignar las gráficas a los componentes
             self.chart_senial_normalizada.plot_to_image(response_marcha['grafica_normalizada'])
             self.chart_velocidad.plot_to_image(response_marcha['grafica_velocidad'])
             self.chart_distancia.plot_to_image(response_marcha['grafica_distancia'])
 
-            # Actualizar la tabla de datos
             if 'data' in response_marcha and 'headers' in response_marcha:
                 self.update_data_table(response_marcha['headers'], response_marcha['data'])
 
-            # Actualizar UI
             self.update()
+            response_marcha = None
             return True
 
         except Exception as e:
-            print(f"Error al inicializar gráficas: {e}")
-            import traceback
-            traceback.print_exc()
+            self.page.snack_bar = ft.SnackBar(
+                content=ft.Text(
+                    f"Error al iniciar las gráficas {e}",
+                    color=ft.colors.WHITE
+                ),
+                bgcolor=ft.colors.AMBER_400,
+            )
+            self.page.snack_bar.open = True
+            self.page.update()
             return False
 
     def update_data_table(self, headers, data):

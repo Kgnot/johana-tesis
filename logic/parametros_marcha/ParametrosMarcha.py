@@ -89,7 +89,6 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax.grid(True)
         fig.tight_layout()
         graficas_segmentos.append(fig)
-        #plt.close(fig)
         ## otro plot:
         fig2, ax2 = plt.subplots(figsize=(12, 6))
         ax2.plot(t, v, label="Velocidad", color="green")
@@ -99,7 +98,6 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax2.grid(True)
         fig2.tight_layout()
         graficas_segmentos.append(fig2)
-        #plt.close(fig2)
         ## Tercer plot:
         fig3, ax3 = plt.subplots(figsize=(12, 6))
         ax3.plot(t, d, label="Distancia", color="purple")
@@ -109,7 +107,6 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax3.grid(True)
         fig3.tight_layout()
         graficas_segmentos.append(fig3)
-        #plt.close(fig3)
         nc = 0
         headers = ["Características", f"Persona"]
         caracteristicas = ["Distancia (m)", "Velocidad promedio (m/s)", "Cantidad de pasos", "Tiempo del paso (s)",

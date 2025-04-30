@@ -67,7 +67,6 @@ def featuresac(senial):
             ax.set_ylabel("Jerk (m/s³)")
             ax.grid(True)
             jerk_graficos.append(fig)
-        #plt.close(fig)  # Cierra cada figura inmediatamente
     caracteristicas = [
         "RMS", "Tiempo de la Prueba (s)", "Potencia", "Energía", "Valor Máximo",
         "Valor Mínimo", "Rango Aceleraciones", "Jerk Máximo", "Jerk Mínimo", "Jerk Medio"
@@ -89,6 +88,4 @@ def featuresac(senial):
                 fila.append("N/A")
         data.append(fila)
         total_data.append(data)
-
-    plt.close('all')
     return total_data, jerk_graficos

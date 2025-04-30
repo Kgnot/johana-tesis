@@ -6,6 +6,7 @@ from src.component.dropdown.genericDropdown import GenericDropdown, DropType
 from src.component.VelocityComponents.signalAnalysisSection.signalAnalysisSection import SignalAnalysisSection
 from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
+from src.error.Error import Error
 
 
 class IntroSection(ft.Column):
@@ -32,7 +33,8 @@ class IntroSection(ft.Column):
                 ], alignment=ft.MainAxisAlignment.CENTER),
                 ft.Container(
                     content=ft.Column([
-                        GenericText("Configuración de análisis", weight=ft.FontWeight.BOLD, color=ft.colors.BLUE_GREY_900),
+                        GenericText("Configuración de análisis", weight=ft.FontWeight.BOLD,
+                                    color=ft.colors.BLUE_GREY_900),
                         row,
                     ], spacing=15, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                     padding=ft.Padding(20, 20, 20, 20),
@@ -122,7 +124,8 @@ class SenialesView(ft.Container):
 
         # Crear secciones para cada acción
         actions_vel = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse']
-        actions_acc = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse', 'Caminata de ida','Caminata de vuelta']
+        actions_acc = ['Pararse', 'Primer Giro', 'Giro para sentarse', 'Sentarse', 'Caminata de ida',
+                       'Caminata de vuelta']
         actions = actions_acc if self.page.data['med_type'] == 'Acc' else actions_vel
         for action in actions:
             section = SignalAnalysisSection(action)
@@ -140,12 +143,7 @@ class SenialesView(ft.Container):
         self.update()
 
         # Mostrar mensaje de éxito
-        self.page.snack_bar = ft.SnackBar(
-            content=ft.Text(
-                f"Datos listos para análisis - Tipo: {self.type_dropdown.value}, Conjunto: {self.data_input.value}",
-                color=ft.colors.WHITE
-            ),
-            bgcolor=ft.colors.AMBER_400,
-        )
+        self.page.snack_bar = Error(
+            f"Datos listos para análisis - Tipo: {self.type_dropdown.value}, Conjunto: {self.data_input.value}")
         self.page.snack_bar.open = True
         self.page.update()

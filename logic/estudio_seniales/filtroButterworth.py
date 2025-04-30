@@ -1,6 +1,5 @@
 from scipy.signal import butter, filtfilt
 import numpy as np
-import matplotlib.pyplot as plt
 from logic.estudio_seniales.alistarDatos import datosProcesar
 
 

@@ -94,4 +94,4 @@ class GaitParameters(ft.Container):
             self.page.snack_bar.open = True
             self.progress.visible = False
             self.process_button.disabled = False
-            self.page.update()
+             

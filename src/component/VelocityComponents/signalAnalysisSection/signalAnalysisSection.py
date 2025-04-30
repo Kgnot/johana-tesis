@@ -5,7 +5,7 @@ from src.component.VelocityComponents.ResultCard.resultCard import ResultCard
 from src.component.SignalChart.signalChart import SignalChart
 from src.component.processButton.ProcessButton import ProcessButton
 from src.component.text.GenericText import GenericText
-
+from src.error.Error import Error
 
 
 class SignalAnalysisSection(ft.UserControl):
@@ -97,9 +97,6 @@ class SignalAnalysisSection(ft.UserControl):
             self.progress.visible = True
             self.analyze_button.disabled = True
             self.update()
-
-            # Run analysis in a separate thread to avoid UI blocking
-            # threading.Thread(target=self.run_analysis, daemon=True).start()
             self.run_analysis()
 
         except Exception as ex:
@@ -154,6 +151,8 @@ class SignalAnalysisSection(ft.UserControl):
         #iniciamos las tablas caracteristicas y angulos
         self.init_result_card(result.get('características'), result.get('angulos'))
 
+        result = None
+
 
     def clear_charts(self):
         for chart in self.chartsXYZ.controls:
@@ -180,24 +179,17 @@ class SignalAnalysisSection(ft.UserControl):
         self.page.update()
 
     def show_error(self, message):
-        self.page.snack_bar = ft.SnackBar(
-            content=ft.Text(message, color=ft.colors.WHITE),
-            bgcolor=ft.colors.RED_600,
-            action=ft.SnackBarAction("OK", lambda e: setattr(self.page.snack_bar, "open", False))
-        )
+        self.page.snack_bar = Error(message)
         self.page.snack_bar.open = True
-        self.page.update()
         self.reset_ui()
 
     def resetCharts_section(self):
         self.chartsXYZ_container.visible = True
         self.chartsJerk_container.visible = True
         self.chartsAngle_container.visible = True
-
         self.chartsXYZ.visible = True
         self.chartsJerk.visible = True
         self.chartsAngle.visible = True
-
         self.chartsXYZ.update()
         self.chartsJerk.update()
         self.chartsAngle.update()

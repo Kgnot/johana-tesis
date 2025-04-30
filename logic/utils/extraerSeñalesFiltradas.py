@@ -9,7 +9,6 @@ def procesar_datos(datos_array):
     dv = DT[:, 3:6]
     da = (da - da.min(axis=0)) / (da.max(axis=0) - da.min(axis=0))
     DT = np.hstack((da, dv))
-    # DT = np.array(DT) # Esto sobra son lo mismo xd
     # Crear diccionario de señales
     seniales = {
         'señalac': [DT[:, 0:3]],  # Aceleraciones
@@ -18,7 +17,6 @@ def procesar_datos(datos_array):
     }
 
     return DT, seniales
-
 
 def extraer_seniales_filtradas(datosProcesar: int):
     datosfinal_total = filtroButterworth_DatosFinalTotal(datosProcesar)

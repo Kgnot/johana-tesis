@@ -82,5 +82,3 @@ def graficosXYZ_segmento(segmento, accion, tipo_medicion, tiempo_inicial, duraci
         graficos_XYZ.append(fig)
 
     return graficos_XYZ
-
-# segmul("Acc", 1, 3, 5, "Pararse")

@@ -55,12 +55,7 @@ def featuresvel(senial, datosfinal_total):
         ax.set_xlabel("Tiempo (s)")
         ax.set_ylabel("Velocidad Angular (rad/s)")
         ax.grid(True)
-
-        # Agregar la imagen a la lista de gráficos
         respuesta_graficos.append(fig)
-
-        # Limpiar la figura después de usarla para evitar que se acumulen recursos
-        #plt.close(fig)
 
     # Definir las características para la tabla
     caracteristicas = ["RMS", "Tiempo de la Prueba", "Potencia", "Energía", "Valor Máximo", "Valor Mínimo",
