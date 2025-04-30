@@ -8,6 +8,9 @@ from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
 # cuando estamos en marcha señal = señalz que se ubica con el DT como:
 # señalaz=[DT[:,2]] #Acc_Z
 def marcha(dato_procesar: int,Ti,Tf):
+
+    print("Datos desde marcha funcion : ", dato_procesar, " - ", Ti, " - ",Tf)
+
     final_data = {}
     DT, seniales, datosfinal_total = extraer_seniales_filtradas(dato_procesar)
     senial = [DT[:, 2]]  # ACC_Z
@@ -24,15 +27,11 @@ def marcha(dato_procesar: int,Ti,Tf):
     for l in range(0, 2):
         print(f"\n--- Segmento {l + 1} ---")
         print(f"La duración de la señal es de {duracion_total:.2f} segundos.")
-        # Ti = float(input(f"Ingrese el tiempo inicial del segmento {l + 1}:\n"))
-        # Tf = float(input(f"Ingrese el tiempo final del segmento {l + 1}:\n"))
         To = int(Ti * fs)
         Te = int(Tf * fs)
-
         if To < 0 or Te > len(datos) or To >= Te:
             print("Error: Los tiempos ingresados están fuera de rango o son inválidos.")
             return
-
         if datos.ndim == 1:
             segmento = datos[To:Te]
         else:
@@ -90,7 +89,7 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax.grid(True)
         fig.tight_layout()
         graficas_segmentos.append(fig)
-        plt.close(fig)
+        #plt.close(fig)
         ## otro plot:
         fig2, ax2 = plt.subplots(figsize=(12, 6))
         ax2.plot(t, v, label="Velocidad", color="green")
@@ -100,7 +99,7 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax2.grid(True)
         fig2.tight_layout()
         graficas_segmentos.append(fig2)
-        plt.close(fig2)
+        #plt.close(fig2)
         ## Tercer plot:
         fig3, ax3 = plt.subplots(figsize=(12, 6))
         ax3.plot(t, d, label="Distancia", color="purple")
@@ -110,7 +109,7 @@ def marcha(dato_procesar: int,Ti,Tf):
         ax3.grid(True)
         fig3.tight_layout()
         graficas_segmentos.append(fig3)
-        plt.close(fig3)
+        #plt.close(fig3)
         nc = 0
         headers = ["Características", f"Persona"]
         caracteristicas = ["Distancia (m)", "Velocidad promedio (m/s)", "Cantidad de pasos", "Tiempo del paso (s)",
@@ -130,6 +129,12 @@ def marcha(dato_procesar: int,Ti,Tf):
         final_data = {
             "headers": headers,
             "data":data,
-            "graficas_segmentos":graficas_segmentos
+            "graficas_segmentos":graficas_segmentos,
+            "grafica_normalizada":fig,
+            "grafica_velocidad":fig2,
+            "grafica_distancia":fig3,
         }
+        print("Data final be like: ",final_data)
         return final_data
+
+#marcha(1,1,3)

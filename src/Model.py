@@ -10,7 +10,7 @@ from src.views.ActivityRecognition import ActivityRecognition
 from src.views.HomeView import HomeView
 from src.views.ManualView import ManualView
 from src.views.SenialesView import SenialesView
-from src.views.gaitParameters import GaitParameters
+from src.views.GaitParameters import GaitParameters
 
 
 class ModelApp:
