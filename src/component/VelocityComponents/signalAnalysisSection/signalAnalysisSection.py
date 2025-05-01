@@ -66,7 +66,6 @@ class SignalAnalysisSection(ft.UserControl):
         )
 
     def build(self):
-        self.clear_charts()
         return ft.Container(
             content=ft.Column([
                 ft.Row([
@@ -79,7 +78,13 @@ class SignalAnalysisSection(ft.UserControl):
                 self.chartsXYZ_container,
                 self.chartsJerk_container,
                 self.chartsAngle_container,
-                self.result_card,
+                ft.Column([
+                    self.result_card,
+                ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    expand=True,
+
+                ),
             ], spacing=24, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
             padding=ft.Padding(24, 24, 24, 24),
             border_radius=12,
@@ -90,6 +95,7 @@ class SignalAnalysisSection(ft.UserControl):
                 top=ft.BorderSide(1, ft.colors.GREY_300),
             )
         )
+        self.clear_charts()
 
     def on_analyze_click(self, e):
         try:
@@ -148,11 +154,10 @@ class SignalAnalysisSection(ft.UserControl):
             self.chartsAngle.controls[i].plot_to_image(chartsAngle[i])
         ##Actualizamos la seccion de chart
         self.resetCharts_section()
-        #iniciamos las tablas caracteristicas y angulos
+        # iniciamos las tablas caracteristicas y angulos
         self.init_result_card(result.get('características'), result.get('angulos'))
 
         result = None
-
 
     def clear_charts(self):
         for chart in self.chartsXYZ.controls:

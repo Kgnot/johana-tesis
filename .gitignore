@@ -16,3 +16,7 @@ build.*
 data
 .data
 
+# El apartado para el entorno:
+env
+.env
+*.env

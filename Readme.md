@@ -8,6 +8,14 @@ Para iniciar primero es necesario clonar el proyecto:
 ```Bash
 git clone https://github.com/Kgnot/johana-tesis 
 ```
+Luego de eso debemos crear un entorno virtual:
+```Bash
+python -m venv env
+```
+Luego activamos: 
+```Bash
+env\Scripts\activate
+```
 Después de clonar el proyecto, toca instalar la data que se  usará directamente
 ubicandonos en la raiz del proyecto vamos a crear la carpeta data
 ```Bash

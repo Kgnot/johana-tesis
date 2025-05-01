@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import io
 from PIL import Image
-from tabulate import tabulate
-
 
 def featuresvel(senial, datosfinal_total):
     # Inicializa listas para almacenar las características
@@ -73,11 +71,6 @@ def featuresvel(senial, datosfinal_total):
             [caracteristicas[5], minimo_list[i]],
             [caracteristicas[6], rango_list[i]],
         ])
-
-        # Imprimir la tabla
-        print(f"Tabla {lab[i]}. Resultados por sujeto\n")
-        print(tabulate(data[i], headers=["Características", f"Persona {i + 1}"], tablefmt="fancy_grid"))
-
     # Retornar las características y los gráficos guardados
     return data, respuesta_graficos
 

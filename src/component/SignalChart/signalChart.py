@@ -4,6 +4,7 @@ import base64
 import matplotlib.pyplot as plt
 
 
+
 class SignalChart(ft.UserControl):
     def __init__(self):
         super().__init__()

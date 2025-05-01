@@ -77,7 +77,6 @@ class ResultCard(ft.UserControl):
                             ], spacing=12),
                             padding=ft.Padding(0, 10, 0, 0)
                         ),
-
                         # Componente Y
                         ft.Container(
                             content=ft.Column([
@@ -97,7 +96,9 @@ class ResultCard(ft.UserControl):
                             ], spacing=12),
                             padding=ft.Padding(0, 10, 0, 0)
                         )
-                    ])
+                    ],
+                        wrap=True
+                    )
                 ),
                 # Componente X
 
