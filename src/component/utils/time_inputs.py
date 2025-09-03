@@ -1,7 +1,7 @@
 import flet as ft
 
 
-def timeImputs():
+def time_inputs():
     return ft.Row([
         ft.TextField(
             label=f"Tiempo inicial",

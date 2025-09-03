@@ -1,6 +1,6 @@
 import flet as ft
 
-from src.component.text.GenericText import GenericText
+from src.component.utils import GenericText
 
 
 class ResultCard(ft.UserControl):

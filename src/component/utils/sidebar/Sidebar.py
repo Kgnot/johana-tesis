@@ -1,6 +1,6 @@
 import flet as ft
 
-from src.component.sidebar.NavigationBar import NavigationBar
+from src.component.utils.sidebar.NavigationBar import NavigationBar
 
 class Sidebar(ft.Container):
     def __init__(self, w, color, on_change,h = None):
