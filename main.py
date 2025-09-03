@@ -1,4 +1,4 @@
-from src.Model import ModelApp
+from src.app import ModelApp
 
 modelo = ModelApp()
 

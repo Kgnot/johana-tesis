@@ -1,11 +1,9 @@
 import flet as ft
-from flet.core.alignment import Alignment
-from flet.core.scrollable_control import OnScrollEvent
-from flet.core.types import ScrollMode
 
 from logic.parametros_marcha.ParametrosMarcha import marcha
-from src.component.SignalChart.signalChart import SignalChart
-from src.component.text.GenericText import GenericText
+from src.component.utils import (
+    SignalChart,
+    GenericText)
 
 
 class ResultGaitParameter(ft.Container):

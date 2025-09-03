@@ -1,8 +1,9 @@
 import flet as ft
 
 from logic.recon.ReconocimientoActividades import wavelet
-from src.component.SignalChart.signalChart import SignalChart
-from src.component.text.GenericText import GenericText
+from src.component.utils import (
+    SignalChart,
+    GenericText)
 
 
 class ResultActivityRecognition(ft.Container):
@@ -82,7 +83,6 @@ class ResultActivityRecognition(ft.Container):
 
         for i in range(min(len(chartREC_vel), 3)):
             self.chartREC_vel.controls[i].plot_to_image(chartREC_vel[i])
-
 
     def clear_charts(self):
         for chart in self.chartICA_ac.controls:

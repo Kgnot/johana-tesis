@@ -1,8 +1,9 @@
 import flet as ft
 
-from src.component.PDFcontainer.PDFEmbed import PDFEmbed
-from src.component.text.GenericText import GenericText
-from src.component.videoEmbebbed.VideoEmbed import VideoEmbed
+from src.component.utils import (
+    PDFEmbed,
+    GenericText,
+    VideoEmbed)
 
 
 class ManualView(ft.Container):
@@ -21,9 +22,9 @@ class ManualView(ft.Container):
                         VideoEmbed(video_url)
                     ])
                 ],
-                alignment=ft.MainAxisAlignment.START, # Lo hace al inicio
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,# lo ubica central
-                spacing=20, # El gap o espacio entre componentes
+                alignment=ft.MainAxisAlignment.START,  # Lo hace al inicio
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # lo ubica central
+                spacing=20,  # El gap o espacio entre componentes
                 scroll=ft.ScrollMode.AUTO  # scrolling
 
             )

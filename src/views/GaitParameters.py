@@ -2,11 +2,13 @@ import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
 
-from src.component.GaitParameter.ResultGaitParameter import ResultGaitParameter
-from src.component.TimeInputs.TimeInputs import timeImputs
-from src.component.dropdown.genericDropdown import DropType, GenericDropdown
-from src.component.processButton.ProcessButton import ProcessButton
-from src.component.text.GenericText import GenericText
+from src.component.gait_parameter.ResultGaitParameter import ResultGaitParameter
+from src.component.utils import (
+    ChooseDataSetDropdown,
+    ProcessButton,
+    time_inputs,
+    BlueProgressRing,
+    GenericText)
 
 
 class GaitParameters(ft.Container):
@@ -16,23 +18,11 @@ class GaitParameters(ft.Container):
             padding=20,
             bgcolor="white",
         )
-        data_options = [
-            DropType("1", "Conjunto 1"),
-            DropType("2", "Conjunto 2"),
-            DropType("3", "Conjunto 3"),
-            DropType("4", "Conjunto 4"),
-        ]
-        self.data_input = GenericDropdown("Conjunto de datos", data_options, "1")
+        self.data_input = ChooseDataSetDropdown()
         self.process_button = ProcessButton(self.on_process_click)
         ## Apartado de inputs:
-        self.time_inputs = timeImputs()
-        self.progress = ft.ProgressRing(
-            width=24,
-            height=24,
-            visible=False,
-            stroke_width=2,
-            color=ft.colors.BLUE_600
-        )
+        self.time_inputs = time_inputs()
+        self.progress = BlueProgressRing()
         self.result_gait_parameter = ResultGaitParameter()
         self.result_gait_parameter.visible = False
         self.content = self.build()
@@ -64,10 +54,10 @@ class GaitParameters(ft.Container):
             spacing=20,
             scroll=ScrollMode.ALWAYS,
             on_scroll_interval=0,
-            on_scroll=self.myscroll
+            on_scroll=self.scroll_function
         )
 
-    def myscroll(self, e: OnScrollEvent):
+    def scroll_function(self, e: OnScrollEvent):
         pass
 
     def on_process_click(self, e):
@@ -94,4 +84,3 @@ class GaitParameters(ft.Container):
             self.page.snack_bar.open = True
             self.progress.visible = False
             self.process_button.disabled = False
-             

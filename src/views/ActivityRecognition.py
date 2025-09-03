@@ -1,11 +1,13 @@
 import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
+from src.component.activity_recognition.ResultActivityRecognition import ResultActivityRecognition
 
-from src.component.ActivityRecognition.ResultActivityRecognition import ResultActivityRecognition
-from src.component.dropdown.genericDropdown import DropType, GenericDropdown
-from src.component.processButton.ProcessButton import ProcessButton
-from src.component.text.GenericText import GenericText
+from ..component.utils import (
+    DropType,
+    GenericDropdown,
+    ProcessButton,
+    GenericText)
 
 
 class ActivityRecognition(ft.Container):
