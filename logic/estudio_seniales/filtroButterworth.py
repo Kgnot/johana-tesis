@@ -1,11 +1,11 @@
 from scipy.signal import butter, filtfilt
 import numpy as np
-from logic.estudio_seniales.alistarDatos import datosProcesar
+from logic.estudio_seniales.alistar_datos import procesar_archivos
 
 
-def filtroButterworth_DatosFinalTotal(datProc: int) -> list:
+def filtroButterworth_DatosFinalTotal(datos_procesar: int) -> list:
     # Llamamos a senialesgenerales:
-    senalesgenerales = datosProcesar(datProc)
+    senalesgenerales = procesar_archivos(datos_procesar)
     #print("Señales generales:",senalesgenerales)
     # Lista para almacenar los datos filtrados de todas las señales
     datosfinal_total = []

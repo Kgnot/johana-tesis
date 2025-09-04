@@ -17,3 +17,4 @@ pyinstaller>=5.6.0
 gaitmap>=2.0.0
 scipy>=1.8.0
 matplotlib>=3.5.0
+pytest
