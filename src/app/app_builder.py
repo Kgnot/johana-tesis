@@ -2,7 +2,7 @@ import flet as ft
 
 from src.component.utils.sidebar.Sidebar import Sidebar
 from src.component.utils import ContentContainer
-from src.frame.Frame import Frame
+from src.frame.frame import Frame
 
 
 class AppBuilder:

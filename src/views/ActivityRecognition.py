@@ -1,7 +1,7 @@
 import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
-from src.component.activity_recognition.ResultActivityRecognition import ResultActivityRecognition
+from src.component.activity_recognition.result_activity_recognition import ResultActivityRecognition
 
 from ..component.utils import (
     DropType,

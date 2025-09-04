@@ -2,7 +2,7 @@ import flet as ft
 from flet.core.scrollable_control import OnScrollEvent
 from flet.core.types import ScrollMode
 
-from src.component.gait_parameter.ResultGaitParameter import ResultGaitParameter
+from src.component.gait_parameter.result_gait_parameter import ResultGaitParameter
 from src.component.utils import (
     ChooseDataSetDropdown,
     ProcessButton,
