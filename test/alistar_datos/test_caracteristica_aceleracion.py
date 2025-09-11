@@ -134,3 +134,11 @@ def test_valores_fisica():
     assert np.isclose(features["RMS"], 9.81)
     assert np.isclose(features["Energía"], 9.81 ** 2 * 100, rtol=1e-3)
     assert np.isclose(features["Potencia"], 9.81 ** 2, rtol=1e-3)
+
+def test_numpy_formula_potencia():
+    columna = np.array([1, 2, 3, 4, 5])
+    cuadrados = columna ** 2
+    suma = np.sum(cuadrados)
+    potencia_manual = suma / len(columna)
+    potencia_automatica = np.mean(columna ** 2)
+    assert potencia_manual == potencia_automatica

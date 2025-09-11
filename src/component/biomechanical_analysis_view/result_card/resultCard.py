@@ -118,7 +118,8 @@ class ResultCard(ft.UserControl):
         # Nombres de componentes
         component_names = ["X", "Y", "Z"]
 
-        # Actualizar cada tabla de componentes
+        # print("RESULTCARD-------------TOTAL DATA: ", total_data)
+
         for idx, component_data in enumerate(total_data):
             if idx >= len(component_names):
                 break
@@ -128,23 +129,22 @@ class ResultCard(ft.UserControl):
             # Limpiar filas existentes
             self.characteristics_tables[component_name].rows.clear()
 
-            # Llenar la tabla con los datos de este componente
-            for item in component_data:
-                # Formatear el valor según su tipo
-                value = item[1]
+            # Recorrer las características del diccionario
+            for key, value in component_data.items():
+                if key == "Jerk":  # saltamos el array completo
+                    continue
                 formatted_value = f"{value:.4f}" if isinstance(value, float) else str(value)
 
-                # Agregar fila a la tabla
                 self.characteristics_tables[component_name].rows.append(
                     ft.DataRow(
                         cells=[
-                            ft.DataCell(GenericText(item[0], color=ft.colors.BLUE_GREY_800)),
+                            ft.DataCell(GenericText(key, color=ft.colors.BLUE_GREY_800)),
                             ft.DataCell(GenericText(formatted_value, color=ft.colors.BLUE_GREY_800)),
                         ]
                     )
                 )
 
-            # Actualizar la tabla de este componente
+            # Actualizar tabla
             self.characteristics_tables[component_name].update()
 
     def update_angles(self, angles_df):

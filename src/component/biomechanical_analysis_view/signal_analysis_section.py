@@ -85,7 +85,7 @@ class SignalAnalysisSection(ft.UserControl):
         self.angle_section.visible = True
 
         # Actualizar result card
-        self.result_card.update_characteristics(result.get('características', {}))
+        self.result_card.update_characteristics(result.get('características', {})) # TODO aqui se pasan las caracteristicas de featuresac [resultados]
         self.result_card.update_angles(result.get('angulos', {}))
         self.result_card.visible = True
 
