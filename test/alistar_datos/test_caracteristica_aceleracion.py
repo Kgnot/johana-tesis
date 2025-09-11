@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
-
+import matplotlib
+matplotlib.use('Agg')
 from logic.estudio_seniales.caracteristica_aceleracion import (
     calcular_caracteristicas, generar_tiempo, graficar_jerk, featuresac
 )
@@ -64,12 +65,12 @@ def test_calcular_caracteristicas_dimensiones_incorrectas():
 def test_graficar_jerk():
     tiempo = np.linspace(0, 1, 10)
     jerk = np.random.randn(10)
-    fig = graficar_jerk(tiempo, jerk, 1,"Test")
+    fig = graficar_jerk(tiempo, jerk, 1, "Test")
     assert fig is not None
 
     # Test dimensiones incorrectas
     with pytest.raises(ValueError):
-        graficar_jerk(tiempo, jerk[:-1], 1,"Test")
+        graficar_jerk(tiempo, jerk[:-1], 1, "Test")
 
 
 def test_featuresac_multicolumna():
@@ -134,6 +135,7 @@ def test_valores_fisica():
     assert np.isclose(features["RMS"], 9.81)
     assert np.isclose(features["Energía"], 9.81 ** 2 * 100, rtol=1e-3)
     assert np.isclose(features["Potencia"], 9.81 ** 2, rtol=1e-3)
+
 
 def test_numpy_formula_potencia():
     columna = np.array([1, 2, 3, 4, 5])

@@ -101,7 +101,6 @@ def featuresac(senial: np.ndarray, etiquetas=None):
 
     for y in range(nc):
         columna = senialf[:, y]
-        print(f"Columna {y} length: {len(columna)}")  # Debug
         tiempo, duracion = generar_tiempo(len(columna))
         caracteristicas = calcular_caracteristicas(columna, tiempo)
         caracteristicas["Tiempo de la Prueba (s)"] = duracion  # añade un elemento al diccionario
@@ -109,9 +108,6 @@ def featuresac(senial: np.ndarray, etiquetas=None):
 
         # Crear y guardar gráfico
         if len(columna) > 5:
-            print(f"Generando gráfico para columna {y}")  # Debug
             jerk_graficos.append(graficar_jerk(tiempo, caracteristicas["Jerk"], y, etiquetas[y]))
-        else:
-            print(f"NO generando gráfico para columna {y} (solo {len(columna)} puntos)")
 
     return resultados, jerk_graficos

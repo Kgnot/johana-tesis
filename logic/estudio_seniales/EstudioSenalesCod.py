@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from logic.estudio_seniales.caracteristica_aceleracion import featuresac
-from logic.estudio_seniales.caracteristicaVelocidad import featuresvel
+from logic.estudio_seniales.caracteristica_velocidad import featuresvel
 from logic.estudio_seniales.extraccionAngulos import artan
 from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
 
@@ -34,7 +34,7 @@ def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
     # Validar rango de tiempo
     if To < 0 or Te > senialr[-1].shape[0] or To >= Te:
         print("Error: Los tiempos ingresados están fuera de rango o son inválidos.")
-        return # retornamos la funcion jiji
+        return  # retornamos la funcion jiji
     # Antes:
     # Aqui elegimos el -1 para evaluar
     segmento = senialr[-1][To:Te]
@@ -51,14 +51,15 @@ def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
     elif med == "Velocidad":
         data, jerk_graficos = featuresvel(segmento, datosfinal_total)  # Me genera lo mismo, graficos y una tabla,
 
-    datos_segmul = {
+    print("desde segmul, caracteristicas: ",data)
+
+    return {
         "gráficos": graficosXYZ,
         "graficos_Jerk": jerk_graficos,
         "angulos_graficos": graficos_angulos,
         "angulos": angulos,
         "características": data,
     }
-    return datos_segmul
 
 
 def graficosXYZ_segmento(segmento, accion, tipo_medicion, tiempo_inicial, duracion_total):
