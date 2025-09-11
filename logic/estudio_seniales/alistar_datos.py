@@ -19,10 +19,10 @@ def obtener_ruta() -> str:
 def obtener_carpeta(dat: int) -> str:
     carpeta_datos = obtener_ruta()
     opciones = {
-        1: ("apriori", "Control"),
-        2: ("apriori", "Experimental"),
-        3: ("POSTERIORI", "Control"),
-        4: ("POSTERIORI", "Experimental"),
+        1: ("apriori", "control"),
+        2: ("apriori", "experimental"),
+        3: ("posteriori", "control"),
+        4: ("posteriori", "experimental"),
     }
 
     if dat not in opciones:
@@ -58,11 +58,13 @@ def normalizar_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     retornamos las señales normalizadas
 """
 
+
 # PRINCIPAL
 def procesar_archivos(dat: int):
     carpeta = obtener_carpeta(dat)
+    print("Carpeta: ", carpeta)
     senales = []
-    for archivo in carpeta:
+    for archivo in os.listdir(carpeta):
         archivo_csv = os.path.join(carpeta, archivo)
         df = leer_csv(archivo_csv)
         df_normalizado = normalizar_dataframe(df)

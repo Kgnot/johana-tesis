@@ -7,27 +7,28 @@ from logic.estudio_seniales.alistar_datos import obtener_carpeta, leer_csv, norm
 
 def test_obtener_carpeta_valida():
     base = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "data", "Tdatos"))
-    assert obtener_carpeta(1).endswith(os.path.join("apriori", "Control"))
-    assert obtener_carpeta(4).endswith(os.path.join("POSTERIORI", "Experimental"))
+    assert obtener_carpeta(1).endswith(os.path.join("apriori", "control"))
+    assert obtener_carpeta(4).endswith(os.path.join("posteriori", "experimental"))
 
 
 def test_leer_csv(tmp_path):
     # CSV Falso
     contenido = """Header info line
-Otra linea
-Otra
-Otra
-Otra
-Otra
-Otra
-Otra
-Otra
-Otra
-Otra
-Otra
-0.1 0.2 0.3 1.0 2.0 3.0
-0.2 0.3 0.4 1.5 2.5 3.5
-"""
+    Otra linea
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Otra
+    Acc_X Acc_Y Acc_Z VelInc_X VelInc_Y VelInc_Z
+    0.1 0.2 0.3 1.0 2.0 3.0
+    0.2 0.3 0.4 1.5 2.5 3.5
+    """
     archivo = tmp_path / "test.csv"
     archivo.write_text(contenido)
 

@@ -14,6 +14,7 @@ class AnalysisController:
 
             # Validar datos de página
             self.analysis_service.validate_page_data(self.view.page.data)
+            print("analysis_controller - view.page.data:", self.view.page.data)
 
             # Ejecutar análisis
             result = self.analysis_service.execute_analysis(

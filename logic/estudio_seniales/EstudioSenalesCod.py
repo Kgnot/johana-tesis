@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from logic.estudio_seniales.caracteristicaAceleracion import featuresac
+from logic.estudio_seniales.caracteristica_aceleracion import featuresac
 from logic.estudio_seniales.caracteristicaVelocidad import featuresvel
 from logic.estudio_seniales.extraccionAngulos import artan
 from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
@@ -10,7 +10,7 @@ from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
 # Este va por segulac y segmulvel
 def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
     print(f"En segmul: datosProcesar: {med} \n {datosProcesar} \n {accion} ")
-    datos_segmul = {}  ## Esto sseran todas las graficas y datos de retorno qu eharemos
+    datos_segmul = {}  ## Esto serán todas las graficas y datos de retorno que haremos
 
     ###
     DT, seniales, datosfinal_total = extraer_seniales_filtradas(datosProcesar)

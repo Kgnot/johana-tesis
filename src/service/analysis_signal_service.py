@@ -5,7 +5,10 @@ class AnalysisService:
     @staticmethod
     def validate_inputs(ti_str: str, tf_str: str) -> tuple:
         """Validamos los inputs de tiempo"""
-        if not ti_str or not tf_str:
+        castNum1: int = int(ti_str)
+        castNum2: int = int(tf_str)
+        linealTimeAssert: bool = (castNum1 < castNum2)
+        if not ti_str or not tf_str or not linealTimeAssert:
             raise ValueError("Ingrese tiempos válidos.")
         return float(ti_str), float(tf_str)
 
@@ -20,7 +23,7 @@ class AnalysisService:
         """Ejecuta el análisis y retorna resultados"""
         return segmul(
             med=page_data.get('med_type'),
-            datosProcesar=int(page_data.get('datosProcesar')),
+            datosProcesar=int(page_data.get('datosProcesar')), # Obetenemos el valor en del dict
             Ti=ti,
             Tf=tf,
             accion=action_name
