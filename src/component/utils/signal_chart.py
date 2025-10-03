@@ -30,8 +30,8 @@ class SignalChart(ft.UserControl):
             on_click=self.open_dialog,
             border_radius=10,
             padding=10,
-            bgcolor=ft.colors.WHITE,
-            shadow=ft.BoxShadow(blur_radius=2, color=ft.colors.BLACK12)
+            bgcolor=ft.Colors.WHITE,
+            shadow=ft.BoxShadow(blur_radius=2, color=ft.Colors.BLACK12)
         )
 
     def build(self):
@@ -71,7 +71,7 @@ class SignalChart(ft.UserControl):
                 self.image.src_base64 = None
                 self.dialog_image.src_base64 = None
                 self.update()
-            return
+            return None
 
         # Si es una figura de matplotlib
         if hasattr(img_source, 'savefig'):

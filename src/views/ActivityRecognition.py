@@ -15,7 +15,7 @@ class ActivityRecognition(ft.Container):
         super().__init__(
             expand=True,
             padding=30,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.Colors.WHITE,
         )
         data_options = [
             DropType("1", "Conjunto 1"),
@@ -31,7 +31,7 @@ class ActivityRecognition(ft.Container):
             height=24,
             visible=False,
             stroke_width=2,
-            color=ft.colors.BLUE_600
+            color=ft.Colors.BLUE_600
         )
         self.content = self.build()
         self.resultActivity.visible = False

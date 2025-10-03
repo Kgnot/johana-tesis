@@ -14,7 +14,7 @@ class SignalChartSection(ft.Container):
         super().__init__(
             content=ft.Column([
                 GenericText(title, weight=ft.FontWeight.W_500,
-                            color=ft.colors.BLUE_GREY_900, size=18),
+                            color=ft.Colors.BLUE_GREY_900, size=18),
                 self.charts,
             ], spacing=12),
             visible=False

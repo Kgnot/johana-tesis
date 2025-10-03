@@ -14,13 +14,13 @@ class NavigationBar(ft.NavigationRail):
             bgcolor="#ffffff",
             expand=True,  # se expande en el componente que hace parte
             destinations=[
-                NavigationComponent(ft.icons.RECORD_VOICE_OVER, "Inicio"),  # Icono de voz para la prueba
-                NavigationComponent(ft.icons.TRENDING_UP, "Análisis de señales Biomecánicas"),
+                NavigationComponent(ft.Icons.RECORD_VOICE_OVER, "Inicio"),  # Icono de voz para la prueba
+                NavigationComponent(ft.Icons.TRENDING_UP, "Análisis de señales Biomecánicas"),
                 # Representa incremento de velocidad
-                NavigationComponent(ft.icons.ACCESSIBLE_ROUNDED, "Parámetros de la marcha"),
-                NavigationComponent(ft.icons.RUN_CIRCLE, "Reconocimiento/Actividades"),
-                NavigationComponent(ft.icons.MENU_BOOK, "Manual"),  # Representa un manual o documentación
-                NavigationComponent(ft.icons.MODEL_TRAINING, "Modelo"),  # Representa el modelo en entrenamiento
+                NavigationComponent(ft.Icons.ACCESSIBLE_ROUNDED, "Parámetros de la marcha"),
+                NavigationComponent(ft.Icons.RUN_CIRCLE, "Reconocimiento/Actividades"),
+                NavigationComponent(ft.Icons.MENU_BOOK, "Manual"),  # Representa un manual o documentación
+                NavigationComponent(ft.Icons.MODEL_TRAINING, "Modelo"),  # Representa el modelo en entrenamiento
             ],
             on_change=on_change
         )

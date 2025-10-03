@@ -8,5 +8,5 @@ class BlueProgressRing(ft.ProgressRing):
             height=24,
             visible=False,
             stroke_width=2,
-            color=ft.colors.BLUE_600
+            color=ft.Colors.BLUE_600
         )

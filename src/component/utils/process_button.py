@@ -5,6 +5,6 @@ class ProcessButton(ft.ElevatedButton):
         super().__init__(
             text=txt,
             on_click=on_click,
-            bgcolor=ft.colors.AMBER_600,
-            color=ft.colors.WHITE
+            bgcolor=ft.Colors.AMBER_600,
+            color=ft.Colors.WHITE
         )

@@ -21,7 +21,8 @@ def _create_analysis_sections(actions: list) -> list:
                 padding=12
             ),
             content=section,
-            bgcolor=ft.colors.WHITE
+
+            bgcolor=ft.Colors.WHITE
         )
         sections.append(panel)
     return sections
@@ -37,7 +38,7 @@ class BiomechanicalAnalysisView(ft.Container):
         super().__init__(
             expand=True,
             padding=30,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.Colors.WHITE,
         )
 
         self._initialize_components()
@@ -56,7 +57,7 @@ class BiomechanicalAnalysisView(ft.Container):
         self.actions_accordion = ft.ExpansionPanelList(
             expand=True,
             visible=False,
-            spacing=8
+            spacing=8,
         )
 
         self.intro_section = IntroSection(ft.Row([
@@ -101,7 +102,7 @@ class BiomechanicalAnalysisView(ft.Container):
         self.page.data['datosProcesar'] = self.data_input.value
 
     def _rebuild_analysis_sections(self):
-        """Reconstruye las secciones de análisis según la configuración"""
+        """Reconstruye las secciones de análisis según la configuración - Es el panel list"""
         med_type = self.page.data['med_type']
         # Limpiar y reconstruir
         self.actions_accordion.controls.clear()

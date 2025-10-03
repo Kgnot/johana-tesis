@@ -77,9 +77,9 @@ class GaitParameters(ft.Container):
             self.page.snack_bar = ft.SnackBar(
                 content=ft.Text(
                     f"Los tiempos ingresados están fuera de rango o son inválidos.",
-                    color=ft.colors.WHITE
+                    color=ft.Colors.WHITE
                 ),
-                bgcolor=ft.colors.AMBER_400,
+                bgcolor=ft.Colors.AMBER_400,
             )
             self.page.snack_bar.open = True
             self.progress.visible = False

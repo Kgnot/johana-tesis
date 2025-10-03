@@ -10,7 +10,7 @@ def time_inputs():
             suffix_text="seg",
             border_radius=8,
             filled=True,
-            bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
+            bgcolor=ft.Colors.with_opacity(0.04, ft.Colors.BLACK),
             hint_text="0.0"
         ),
         ft.TextField(
@@ -20,7 +20,7 @@ def time_inputs():
             suffix_text="seg",
             border_radius=8,
             filled=True,
-            bgcolor=ft.colors.with_opacity(0.04, ft.colors.BLACK),
+            bgcolor=ft.Colors.with_opacity(0.04, ft.Colors.BLACK),
             hint_text="0.0"
         ),
     ], alignment=ft.MainAxisAlignment.CENTER, spacing=20)

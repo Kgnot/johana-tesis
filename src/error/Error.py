@@ -5,7 +5,7 @@ def Error(text):
     return ft.SnackBar(
         content=ft.Text(
             text,
-            color=ft.colors.WHITE
+            color=ft.Colors.WHITE
         ),
-        bgcolor=ft.colors.AMBER_400,
+        bgcolor=ft.Colors.AMBER_400,
     )

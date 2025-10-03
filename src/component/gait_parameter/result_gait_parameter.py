@@ -43,8 +43,8 @@ class ResultGaitParameter(ft.Container):
             padding=10,
             margin=ft.margin.only(top=20),
             border_radius=10,
-            bgcolor=ft.colors.WHITE,
-            shadow=ft.BoxShadow(blur_radius=2, color=ft.colors.BLACK12)
+            bgcolor=ft.Colors.WHITE,
+            shadow=ft.BoxShadow(blur_radius=2, color=ft.Colors.BLACK12)
         )
 
         # Llamada al constructor padre con content ya definido
@@ -108,9 +108,9 @@ class ResultGaitParameter(ft.Container):
             self.page.snack_bar = ft.SnackBar(
                 content=ft.Text(
                     f"Error al iniciar las gráficas {e}",
-                    color=ft.colors.WHITE
+                    color=ft.Colors.WHITE
                 ),
-                bgcolor=ft.colors.AMBER_400,
+                bgcolor=ft.Colors.AMBER_400,
             )
             self.page.snack_bar.open = True
             self.page.update()

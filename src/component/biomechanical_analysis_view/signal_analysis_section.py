@@ -28,7 +28,7 @@ class SignalAnalysisSection(ft.UserControl):
 
         self.progress = ft.ProgressRing(
             width=24, height=24, visible=False,
-            stroke_width=2, color=ft.colors.BLUE_600
+            stroke_width=2, color=ft.Colors.BLUE_600
         )
 
         self.controller = AnalysisController(self)
@@ -51,10 +51,10 @@ class SignalAnalysisSection(ft.UserControl):
             padding=ft.Padding(24, 24, 24, 24),
             border_radius=12,
             border=ft.Border(
-                bottom=ft.BorderSide(2, ft.colors.GREY_300),
-                right=ft.BorderSide(1, ft.colors.GREY_300),
-                left=ft.BorderSide(1, ft.colors.GREY_300),
-                top=ft.BorderSide(1, ft.colors.GREY_300),
+                bottom=ft.BorderSide(2, ft.Colors.GREY_300),
+                right=ft.BorderSide(1, ft.Colors.GREY_300),
+                left=ft.BorderSide(1, ft.Colors.GREY_300),
+                top=ft.BorderSide(1, ft.Colors.GREY_300),
             )
         )
 
