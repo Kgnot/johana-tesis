@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
-import math
 from matplotlib import pyplot as plt
-from scipy.signal import savgol_filter  # Para mejor suavizado
 
 
 def artan(senial, longitud_filtro=31, figsize=(8, 4)):

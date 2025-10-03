@@ -17,7 +17,7 @@ class ModelApp:
         ft.app(target=self.run)
 
     def start_web(self):
-        ft.app(target=self.run, port=9000, view=Optional[ft.WEB_BROWSER])
+        ft.app(target=self.run, port=9000, view=ft.WEB_BROWSER)
 
     def run(self, page: ft.Page):
         self.app_builder = AppBuilder(page)  # construimos la application con una pagina
