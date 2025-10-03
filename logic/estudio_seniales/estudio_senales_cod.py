@@ -3,18 +3,19 @@ from matplotlib import pyplot as plt
 
 from logic.estudio_seniales.caracteristica_aceleracion import featuresac
 from logic.estudio_seniales.caracteristica_velocidad import featuresvel
-from logic.estudio_seniales.extraccionAngulos import artan
+from logic.estudio_seniales.extraccion_angulos import artan
 from logic.utils.extraerSeñalesFiltradas import extraer_seniales_filtradas
 
 
-# Este va por segulac y segmulvel
-def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
-    print(f"En segmul: datosProcesar: {med} \n {datosProcesar} \n {accion} ")
-    datos_segmul = {}  ## Esto serán todas las graficas y datos de retorno que haremos
-
-    ###
-    DT, seniales, datosfinal_total = extraer_seniales_filtradas(datosProcesar)
-
+"""
+    segumul es quien nos otorga el análisis de señales deseado.
+    Obtenemos si es Aceleración o Velocidad dependiendo de "med"
+    Luego cuales son los datos a procesar
+    Tiempo inicial y tiempo final
+    El tipo de acción a obtener
+"""
+def segmul(med: str, datos_procesar: int, ti, tf, accion):
+    DT, seniales, datosfinal_total = extraer_seniales_filtradas(datos_procesar) # Función ya testeada
     # Seleccionar señal según el tipo de medición
     if med == "Acc":
         senial = seniales['señalac']
@@ -22,36 +23,27 @@ def segmul(med: str, datosProcesar: int, Ti, Tf, accion):
         senial = seniales['señalve']
     else:
         print(f"Tipo de medición '{med}' no reconocido. Use 'Acc' o 'Velocidad'.")
-        return
+        return None
 
     senialr = np.array(senial)
-    print(f"Señalr: {senialr} ")
-    # Para cada señal
-    # for k in range(len(senialr)):
-    To = int(Ti * 100)
-    Te = int(Tf * 100)
+    To = int(ti * 100)
+    Te = int(tf * 100)
     Tt = Te - To
     # Validar rango de tiempo
     if To < 0 or Te > senialr[-1].shape[0] or To >= Te:
-        print("Error: Los tiempos ingresados están fuera de rango o son inválidos.")
-        return  # retornamos la funcion jiji
-    # Antes:
+        raise Exception("Error: Los tiempos ingresados están fuera de rango o son inválidos.")
     # Aqui elegimos el -1 para evaluar
     segmento = senialr[-1][To:Te]
-
     # Visualizar resultados XYZ
-    graficosXYZ = graficosXYZ_segmento(segmento, accion, med, Ti, Tt)  # Aqui me agrega todas las graficas XYZ
+    graficosXYZ = graficosXYZ_segmento(segmento, accion, med, ti, Tt)  # Aquí me agrega todas las graficas XYZ, y ya fué testeada
     # Analizar señal angulos
     angulos, graficos_angulos = artan(segmento)  # Devuelve: angulos,respuesta_graficos . angulos es un pd.Dataframe
-    print("\n")
     # Extraer características según tipo de medición
     data, jerk_graficos = None, None
     if med == "Acc":
-        data, jerk_graficos = featuresac(segmento)  # Esta guardando Los graficos y la tabla
+        data, jerk_graficos = featuresac(segmento)  # Función ya probada
     elif med == "Velocidad":
-        data, jerk_graficos = featuresvel(segmento, datosfinal_total)  # Me genera lo mismo, graficos y una tabla,
-
-    print("desde segmul, caracteristicas: ",data)
+        data, jerk_graficos = featuresvel(segmento, datosfinal_total)  # Función ya probada
 
     return {
         "gráficos": graficosXYZ,

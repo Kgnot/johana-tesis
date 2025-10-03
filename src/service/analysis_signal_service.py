@@ -1,4 +1,4 @@
-from logic.estudio_seniales.EstudioSenalesCod import segmul
+from logic.estudio_seniales.estudio_senales_cod import segmul
 
 
 class AnalysisService:
@@ -23,8 +23,8 @@ class AnalysisService:
         """Ejecuta el análisis y retorna resultados"""
         return segmul(
             med=page_data.get('med_type'),
-            datosProcesar=int(page_data.get('datosProcesar')), # Obetenemos el valor en del dict
-            Ti=ti,
-            Tf=tf,
+            datos_procesar=int(page_data.get('datosProcesar')), # Obetenemos el valor en del dict
+            ti=ti,
+            tf=tf,
             accion=action_name
         )

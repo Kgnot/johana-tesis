@@ -6,7 +6,6 @@ from logic.estudio_seniales.alistar_datos import procesar_archivos
 def filtroButterworth_DatosFinalTotal(datos_procesar: int) -> list:
     # Llamamos a senialesgenerales:
     senalesgenerales = procesar_archivos(datos_procesar)
-    print("Señales generales:",senalesgenerales)
     # Lista para almacenar los datos filtrados de todas las señales
     datosfinal_total = []
 
@@ -14,9 +13,6 @@ def filtroButterworth_DatosFinalTotal(datos_procesar: int) -> list:
     orden = 4  # Orden del filtro
     fc = 10  # Frecuencia de corte en Hz
     fs = 100  # Frecuencia de muestreo en Hz
-
-    # Nombres de las variables
-    # Listado = ['Aceleración X', 'Aceleración Y', 'Aceleración Z', 'V. Angular X', 'V. Angular Y', 'V. Angular Z']
 
     # Filtro Butterworth y filtrado de señales
     for l in range(len(senalesgenerales)):

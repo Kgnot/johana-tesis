@@ -3,7 +3,7 @@ import pywt
 from matplotlib import pyplot as plt
 from sklearn.decomposition import FastICA
 
-from logic.estudio_seniales.EstudioSenalesCod import extraer_seniales_filtradas
+from logic.estudio_seniales.estudio_senales_cod import extraer_seniales_filtradas
 
 
 ## señalwa es el mismo DT

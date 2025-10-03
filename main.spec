@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('data', 'data')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    version='C:\\Users\\Henry\\AppData\\Local\\Temp\\27f1399c-037d-4630-9d38-9d0dde660a33',
+    version='C:\\Users\\enamo\\AppData\\Local\\Temp\\18f0dc83-7273-4809-9b9a-f3069dbeebaa',
 )
