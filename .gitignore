@@ -13,9 +13,9 @@ build.*
 *.build
 
 ## No vamos a añadir el data pero vamos a colocarlo en el README
-data
-.data
-
+#Subirmeso las data xd:
+#./data
+#data
 # El apartado para el entorno:
 env
 .env
