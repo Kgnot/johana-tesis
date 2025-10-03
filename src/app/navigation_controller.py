@@ -1,5 +1,4 @@
 import flet as ft
-from logic.openSim.openSim import execModelo
 from .view_manager import ViewManager
 
 
@@ -13,7 +12,7 @@ class NavigationController:
 
     def navigate_to(self, index):
         if index == 5:
-            execModelo()
+            print("aqui iniciaría el modelo xd")
             return
         new_view:ft.Container = self.view_manager.get_view(index)
         if new_view:
