@@ -7,12 +7,11 @@ class HomeHeader(ft.Column):
     def __init__(self):
         super().__init__(
             controls=[
-                GenericText("Tesis en Bioingeniería", size=28, weight="bold"),
+                GenericText("Análisis Cinemáticp", size=28, weight="bold"),
                 GenericText(
                     "Este proyecto tiene como objetivo analizar el movimiento humano utilizando sensores "
-                    "de aceleración y modelos biomecánicos avanzados. A través de este estudio, buscamos "
-                    "comprender mejor la cinemática del cuerpo y desarrollar herramientas para mejorar "
-                    "la rehabilitación y el rendimiento deportivo.",
+                    "inerciales. A través de este estudio, buscamos comprender mejor la cinemática del "
+                    "y desarrollar herramientas para mejorar la rehabilitación y el rendimiento deportivo. ",
                     size=16
                 ),
                 GenericText(
