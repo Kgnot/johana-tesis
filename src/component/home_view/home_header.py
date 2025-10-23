@@ -7,7 +7,7 @@ class HomeHeader(ft.Column):
     def __init__(self):
         super().__init__(
             controls=[
-                GenericText("Análisis Cinemáticp", size=28, weight="bold"),
+                GenericText("Análisis Cinemático", size=28, weight="bold"),
                 GenericText(
                     "Este proyecto tiene como objetivo analizar el movimiento humano utilizando sensores "
                     "inerciales. A través de este estudio, buscamos comprender mejor la cinemática del "
