@@ -19,7 +19,7 @@ class ManualView(ft.Container):
                     ft.Divider(),
                     ft.Row([
                         PDFEmbed(pdf_url),
-                        # VideoEmbed(video_url)
+                        # VideoEmbed(video_url) 
                     ])
                 ],
                 alignment=ft.MainAxisAlignment.START,  # Lo hace al inicio
