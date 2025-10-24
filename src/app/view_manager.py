@@ -13,7 +13,7 @@ def _initialize_views():
         2: GaitParameters(),
         3: ActivityRecognition(),
         4: ManualView(
-            "https://uc724cfcf2f20a747d5dade91a95.dl.dropboxusercontent.com/cd/0/inline2/Cz3xj2jXMEawPEucRyL-_NJJ6VsFzXTb71HcMiFP3dN8V4sCEeCteKypER-PNzE11ZDXNK6RAcer7seifs7G8wKamvuSlvSIEvD7zM9Z8_oimTFB1N4hzoWiXKAEklMoE-dYsSapv1W4WJJULzicDj_d1mKSLKg8b-hWB82lAf3DyD6gNxmG86QwBIHBppc5zyDwNG5pV_zHGpu8JuWtUqV7ovP2NL1rwKtRwvSMWht_FngpBVkfSfJlCvF2Qt8cXBxKiws0SAoqb6E4LiVg_SBz18LfAzH8GDBp6bddGoDtahss1sIPT_JvePIHy1tt1uUlS2dSN7ZkdJf91LpjxzvIPGfJClQksfhnMUHJBorVFKgRTgWhXBRFFxTPtcFODFc/file",
+            "https://uc723e15ed308fee84b26d31e83c.dl.dropboxusercontent.com/cd/0/inline2/Cz3K9nP1X3g4R67QnoIxD14RqnYTR3dHTY3YU9H0Q4u7taVMuiWQ6LtMiFgOU6DqRe7SMmz-YobboWJH9EGy6dwyNdXIc20eTcuKxY6AXZV-2YQoCgzg_Y5cP4UK39_AlW21oH7IFioHVw5c9MD70ld5pHzkVcSK1OGWzK6thCUOng4xxwhGqyFcNjJ7oJd777JX8yDBaP0vNo-sy4zdt4hShtAJ2aHnFmFbTBVqtYz18XqD79RQbBzRFPKE6MmRJeoKqSQlYG20tx9dxewXYdDSaqeUFaXhfKbHdVDEIJ57tQC0uZ-y0P1TtmkyAmwaL7V3aZInHO6LXWrZVHINJ8byCUV8o6QTOo6WyRGm2Z6bMmPbXLMcSO6t5swrLC9rXVM/file",
             "https://www.youtube.com/watch?v=QB0tJajDvMw"
         )
     }
