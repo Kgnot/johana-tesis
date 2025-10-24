@@ -7,4 +7,4 @@ def main(page: ft.Page):
 
 # Arranque web
 if __name__ == "__main__":
-    ft.app(target=main, port=9000, view=ft.WEB_BROWSER)
+    ft.app(target=main, port=9000, view=ft.WEB_BROWSER, assets_dir="assets")

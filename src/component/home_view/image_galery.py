@@ -7,11 +7,11 @@ class ImageGallery(ft.Column):
     def __init__(self):
         super().__init__(
             controls=[
-                GenericText("Ejemplo de análisis visual de movimiento:", size=18),
-                ft.Row(
+                GenericText("Ejemplo de análisis visual de movimiento:", size=20, weight=ft.FontWeight.W_100),
+                ft.Column(
                     [
-                        ImageCard("https://moto-tiles.com/site_pr/img_pr/03.jpg"),
-                        ImageCard("https://ars.els-cdn.com/content/image/1-s2.0-S0196070924003223-gr1.jpg")
+                        ImageCard("/img/iTUG.jpg",400,300),
+                        ImageCard("/img/mototiles.jpg",400,300)
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                     spacing=20
